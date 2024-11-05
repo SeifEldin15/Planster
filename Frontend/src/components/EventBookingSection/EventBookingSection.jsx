@@ -1,0 +1,69 @@
+import React from 'react';
+import eventImage from './21.jpg'; // Add this import
+
+const EventCard = ({ title, imageSrc }) => (
+  <div className="flex flex-col items-center">
+    <div className="w-64 h-64 overflow-hidden rounded-lg mb-4 transition-transform duration-300 hover:scale-105">
+      <img 
+        src={imageSrc} 
+        alt={`${title} event`} 
+        className="w-full h-full object-cover"
+      />
+    </div>
+    <h3 className="text-lg font-semibold">{title}</h3>
+  </div>
+);
+
+const EventBookingSection = () => {
+  const events = [
+    {
+      title: "Weddings",
+      imageSrc: eventImage,  // Use the imported image
+    },
+    {
+      title: "Parties",
+      imageSrc: eventImage,
+    },
+    {
+      title: "Music Events",
+      imageSrc: eventImage,
+    },
+    {
+      title: "Corporate",
+      imageSrc: eventImage,
+    }
+  ];
+
+  return (
+    <div className="max-w-6xl mx-auto px-4 py-16">
+      <div className="text-center mb-16">
+        <h1 className="text-3xl font-bold mb-2">
+          Begin Booking For Your {" "}
+          <span className="text-indigo-600">Event</span>
+        </h1>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        {events.map((event) => (
+          <EventCard
+            key={event.title}
+            title={event.title}
+            imageSrc={event.imageSrc}
+          />
+        ))}
+      </div>
+
+      <div className="flex justify-center">
+        <button
+          className="bg-indigo-600 text-white px-8 py-3 rounded-full 
+                   hover:bg-indigo-700 transition-colors duration-300
+                   text-lg font-medium"
+        >
+          Start Your Event
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default EventBookingSection;
