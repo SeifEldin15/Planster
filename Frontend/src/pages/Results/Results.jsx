@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import VendorCard from '../../components/VendorCard/VendorCard';
 import Navbar from '../../components/Navbar/Navbar'
 import Slider from '../../components/Slider/Slider'
+import SearchSection from '../../components/SearchSection/SearchSection'
 // import Footer from '../../components/Footer/Footer'
 import testimg from '../../assets/testimg.jpg';
 const images = [
@@ -105,51 +106,12 @@ const Results = () => {
   return (
     <>
     <Navbar />
+    <SearchSection />
     <Slider images={images} />
     <div className="max-w-[85%] mx-auto p-6">
       <h2 className="text-2xl font-semibold mb-6">Local Vendors</h2>
       <div className="divide-y divide-gray-200 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
         {venues.map((venue) => (
-          <VendorCard 
-            key={venue._id} 
-            name={venue.name}
-            address={venue.address}
-            rating={venue.rating}
-          />
-        ))}
-          {venues.map((venue) => (
-          <VendorCard 
-            key={venue._id} 
-            name={venue.name}
-            address={venue.address}
-            rating={venue.rating}
-          />
-        ))}
-          {venues.map((venue) => (
-          <VendorCard 
-            key={venue._id} 
-            name={venue.name}
-            address={venue.address}
-            rating={venue.rating}
-          />
-        ))}
-          {venues.map((venue) => (
-          <VendorCard 
-            key={venue._id} 
-            name={venue.name}
-            address={venue.address}
-            rating={venue.rating}
-          />
-        ))}
-          {venues.map((venue) => (
-          <VendorCard 
-            key={venue._id} 
-            name={venue.name}
-            address={venue.address}
-            rating={venue.rating}
-          />
-        ))}
-          {venues.map((venue) => (
           <VendorCard 
             key={venue._id} 
             name={venue.name}
