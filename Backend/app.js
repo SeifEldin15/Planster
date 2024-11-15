@@ -39,7 +39,7 @@ mongoose
         console.log("connected to db");    
     })
     .catch(()=> {
-        console.log(error);
+        // console.log(error);
     })
 
 app.use(AuthRoutes);
