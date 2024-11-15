@@ -5,6 +5,7 @@ import HowItWorks from '../../components/HowItWorks/HowItWorks'
 import FAQ from '../../components/FAQ/FAQ'
 import Footer from '../../components/Footer/Footer'
 import EventBookingSection from '../../components/EventBookingSection/EventBookingSection'
+import EventVendors from '../../components/EventVendors/EventVendors'
 const Home = () => {
   return (
     <div>
@@ -13,6 +14,7 @@ const Home = () => {
       <HowItWorks />
       <FAQ />
       <EventBookingSection />
+      <EventVendors />
       <Footer />
     </div>
   )
