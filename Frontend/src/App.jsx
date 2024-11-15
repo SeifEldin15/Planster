@@ -8,6 +8,7 @@ import BusinessOnboarding from './pages/BusinessOnboarding/BusinessOnboarding'
 import Event from './pages/Event/Event'
 import Wedding from './pages/Wedding/Wedding'
 import Results from './pages/Results/Results'
+import Favorites from './pages/Favorites/Favorites'
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ function App() {
         <Route path="/business-onboarding" element={<BusinessOnboarding />} />
         <Route path="/event" element={<Event />} />
         <Route path="/wedding" element={<Wedding />} />
+        <Route path="/favorites" element={<Favorites />} />
       </Routes>
     </BrowserRouter>
   )
