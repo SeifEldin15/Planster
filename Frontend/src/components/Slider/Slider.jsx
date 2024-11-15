@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 const Slider = ({ images }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
