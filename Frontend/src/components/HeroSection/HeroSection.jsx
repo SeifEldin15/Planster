@@ -40,7 +40,7 @@ const HeroSection = () => {
           Find, compare, and book the best vendors with our AI-powered platform. Save time, reduce stress, and plan your perfect event in just a few clicks.
         </p>
         
-        <button className="bg-purple-100 text-purple-700 px-8 py-3 rounded-full text-lg font-medium hover:bg-purple-200 transition-colors">
+        <button className="bg-purple-50 text-purple-600 px-8 py-3 rounded-lg text-lg font-medium hover:bg-purple-100 transition-colors shadow-[0_0_15px_rgba(168,85,247,0.15)] border border-purple-200">
           Start Your Event
         </button>
       </div>
