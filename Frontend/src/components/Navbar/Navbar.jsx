@@ -27,7 +27,11 @@ const Navbar = () => {
           <a href="/faq" className="text-gray-700 hover:text-gray-900">
             FAQ
           </a>
-          <button className="rounded-full bg-indigo-100 px-6 py-2 text-indigo-900 hover:bg-indigo-200">
+          <button className="rounded-full bg-indigo-100 px-6 py-2 text-black hover:bg-indigo-200"
+          style={{
+            backgroundColor: 'var(--secondary-color)',
+          }}
+          >
             View Vendors
           </button>
         </div>
