@@ -55,9 +55,12 @@ const EventBookingSection = () => {
 
       <div className="flex justify-center">
         <button
-          className="bg-indigo-600 text-white px-8 py-3 rounded-full 
-                   hover:bg-indigo-700 transition-colors duration-300
-                   text-lg font-medium"
+          className="bg-[var(--primary-color)] text-white px-12 py-3 rounded-lg 
+                   hover:opacity-90 transition-colors duration-300
+                   text-lg font-medium w-64"
+          style={{
+            boxShadow: '0 0 20px rgba(106, 108, 196, 0.4)'
+          }}
         >
           Start Your Event
         </button>
