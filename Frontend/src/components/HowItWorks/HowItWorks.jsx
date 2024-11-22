@@ -2,41 +2,39 @@ import React from 'react';
 import sideimg from '../../assets/2b4 - Copy.jpg';
 const HowItWorks = () => {
   return (
-    <div className="flex items-start justify-between max-w-6xl mx-auto p-8 gap-12">
-      {/* Left Section */}
+    <div className="flex flex-col md:flex-row items-start justify-between max-w-6xl mx-auto p-8 gap-12 mt-12">
       <div className="flex-1">
         <div className="mb-8">
-          <span className="bg-purple-100 text-purple-700 px-4 py-1 rounded-full text-sm">
+          <span className="bg-[var(--secondary-color)] text-[var(--primary-color)] px-6 py-1 rounded-full text-sm">
             How It Works
           </span>
         </div>
 
-        <h2 className="text-3xl font-bold mb-8">Customized Search</h2>
+        <h2 className="text-3xl font-medium mb-8">Customized Search</h2>
 
-        <div className="space-y-8">
-          {/* Step 1 */}
+        <div className="space-y-8 relative">
           <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-700">
+            <div className="relative flex-shrink-0 w-10 h-10 rounded-full bg-[var(--secondary-color)] border border-[var(--primary-color)] flex items-center justify-center text-[var(--primary-color)] text-lg font-semibold">
               1
+              <div className="absolute top-[calc(100%+4px)] h-[24px] w-[1px] bg-gray-300" />
             </div>
             <div>
               <h3 className="font-semibold text-lg mb-1">Choose Your Type Of Event</h3>
             </div>
           </div>
 
-          {/* Step 2 */}
           <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-700">
+            <div className="relative flex-shrink-0 w-10 h-10 rounded-full bg-[var(--secondary-color)] border border-[var(--primary-color)] flex items-center justify-center text-[var(--primary-color)] text-lg font-semibold">
               2
+              <div className="absolute top-[calc(100%+4px)] h-[24px] w-[1px] bg-gray-300" />
             </div>
             <div>
               <h3 className="font-semibold text-lg mb-1">Select Your Required Vendors</h3>
             </div>
           </div>
 
-          {/* Step 3 */}
           <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-700">
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[var(--secondary-color)] border border-[var(--primary-color)] flex items-center justify-center text-[var(--primary-color)] text-lg font-semibold">
               3
             </div>
             <div>
@@ -46,14 +44,10 @@ const HowItWorks = () => {
               </p>
             </div>
           </div>
-
-          {/* Vertical line connecting numbers */}
-          <div className="absolute left-[3.1rem] top-[12rem] h-32 w-px bg-purple-100" />
         </div>
       </div>
 
-      {/* Right Section - Custom Image */}
-      <div className="flex-1">
+      <div className="flex-1 w-full md:w-auto">
         <img 
           src={sideimg} 
           alt="How it works demonstration" 
