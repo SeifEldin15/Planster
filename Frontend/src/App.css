@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+:root {
+  --primary-color: #6A6CC4;
+  --secondary-color: #DEDEF5;
+  --tertiary-color: #f00;
+  --accent-color: #0f0;
+}
+
+.animate-slide {
+  animation: slide 20s linear infinite;
+}
+
+.animate-slide:hover {
+  animation-play-state: paused;
+}
