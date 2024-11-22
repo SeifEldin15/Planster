@@ -6,8 +6,8 @@
 :root {
   --primary-color: #6A6CC4;
   --secondary-color: #DEDEF5;
-  --tertiary-color: #f00;
-  --accent-color: #0f0;
+  --tertiary-color: #837DFE;
+  --hover-color: #8384ce;
 }
 
 .animate-slide {
