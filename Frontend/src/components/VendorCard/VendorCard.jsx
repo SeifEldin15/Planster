@@ -21,7 +21,7 @@ const VendorCard = ({ name, address, rating, email = "contact@example.com", phon
 
   return (
     <div 
-      className="flex flex-col p-6 hover:scale-105 transition-all duration-200 cursor-pointer bg-white shadow-sm hover:shadow-lg rounded-xl"
+      className="flex flex-col p-6 h transition-all duration-200 cursor-pointer bg-white shadow-sm hover:shadow-lg rounded-xl"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
