@@ -30,7 +30,11 @@ const HeroSection = () => {
       <div className="max-w-3xl mx-auto text-center z-10">
         <h1 className="text-5xl font-bold mb-6">
           Event Planning Simplified with{' '}
-          <span className="text-purple-500">
+          <span className=""
+          style={{
+            color: 'var(--primary-color)',
+          }}
+          >
             AI-Powered
           </span>
           {' '}Vendor Connections
@@ -40,7 +44,14 @@ const HeroSection = () => {
           Find, compare, and book the best vendors with our AI-powered platform. Save time, reduce stress, and plan your perfect event in just a few clicks.
         </p>
         
-        <button className="bg-purple-50 text-purple-600 px-8 py-3 rounded-lg text-lg font-medium hover:bg-purple-100 transition-colors shadow-[0_0_15px_rgba(168,85,247,0.15)] border border-purple-200">
+        <button className="px-8 py-3 rounded-lg text-lg font-medium hover:bg-purple-100 transition-colors border"
+          style={{
+            backgroundColor: 'var(--secondary-color)',
+            color: 'var(--primary-color)',
+            borderColor: 'var(--primary-color)',
+            boxShadow: '0 0 20px rgba(106, 108, 196, 0.4)'
+          }}
+        >
           Start Your Event
         </button>
       </div>
