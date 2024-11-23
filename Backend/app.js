@@ -30,6 +30,9 @@ app.get('/', (req, res) =>{
     return res.status(200).send("working");
 });
 
+app.use(AuthRoutes);
+app.use(VenueRoutes);
+
 mongoose 
     .connect(mongoDBCONNECTION)
     .then(()=> {
@@ -38,9 +41,12 @@ mongoose
         });
         console.log("connected to db");    
     })
-    .catch(()=> {
-        // console.log(error);
-    })
+    .catch((error)=> {
+        console.error("MongoDB connection error:", error);
+        process.exit(1);  // Exit process with failure
+    });
 
-app.use(AuthRoutes);
-app.use(VenueRoutes);
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Something went wrong!' });
+});
