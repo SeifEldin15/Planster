@@ -1,7 +1,46 @@
+import GuestUser from "../models/guestUserModel.js";
+import crypto from 'crypto';
 import User from "../models/userModels.js"
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from "../config.js";
 import {hashPassword, comparePassword} from "../helpers/auth.js";
+
+const createGuestUser = async (req, res) => {
+    try {
+        const guestId = crypto.randomUUID();
+        
+        const guestUser = await GuestUser.create({
+            guestId: guestId
+        });
+
+        jwt.sign(
+            { 
+                id: guestUser._id, 
+                guestId: guestUser.guestId,
+                isGuest: true,
+                exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60) // 24 hours expiration
+            }, 
+            JWT_SECRET, 
+            {}, 
+            (err, token) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).send('JWT Signing Error');
+                }
+                console.log('Created guest token:', token); // Debug log
+                res.cookie('token', token).json({
+                    guestId: guestUser.guestId,
+                    token: token,
+                    message: 'Guest access granted'
+                });
+            }
+        );
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send('Server error');
+    }
+};
 
 const loginUser = async (req, res) => {
     try {
@@ -79,4 +118,5 @@ const getProfile = (req, res) => {
     }  
 };
 
-export { loginUser, registerUser, getProfile};
+
+export { loginUser, registerUser, getProfile, createGuestUser }; 
