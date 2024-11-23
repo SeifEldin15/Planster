@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import JsonWebTokenError  from "jsonwebtoken";
 import cors from 'cors';
 import VenueRoutes from './routes/Venue.js';
+import FavoriteRoutes from './routes/favorites.js';
 
 
 const app = express();
@@ -30,8 +31,9 @@ app.get('/', (req, res) =>{
     return res.status(200).send("working");
 });
 
-app.use(AuthRoutes);
-app.use(VenueRoutes);
+app.use('/api/auth', AuthRoutes);
+app.use('/api/venues', VenueRoutes);
+app.use('/api/favorites', FavoriteRoutes);
 
 mongoose 
     .connect(mongoDBCONNECTION)
