@@ -5,7 +5,6 @@ const Navbar = () => {
   return (
     <nav className="border-b border-gray-200 bg-white py-3">
       <div className="mx-auto flex max-w-[1300px] items-center justify-between">
-        {/* Logo and brand name */}
         <div className="flex items-center space-x-2">
           <img 
             src={logo} 
@@ -14,7 +13,6 @@ const Navbar = () => {
           />
         </div>
 
-        {/* Navigation links */}
         <div className="flex items-center space-x-8">
           <a href="/" className="text-gray-700 hover:text-gray-900">
             Home
