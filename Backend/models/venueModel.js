@@ -9,6 +9,10 @@ const venueSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    images: {
+        type: [String],  // Array of image names/paths
+        default: []
+    },
     rating: {
         type: Number,
         min: 0,

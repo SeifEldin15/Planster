@@ -127,6 +127,7 @@ const Results = () => {
             name={venue.name}
             address={venue.address}
             rating={venue.rating}
+            images={venue.images}
           />
         ))}
       </div>

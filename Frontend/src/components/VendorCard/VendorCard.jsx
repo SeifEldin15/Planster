@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import testimg from '../../assets/testimg.jpg';
 
-const VendorCard = ({ id, name, address, rating, email = "contact@example.com", phone = "0228805477", isFavorite: initialIsFavorite = false }) => {
+const VendorCard = ({ id, name, address, rating, email = "contact@example.com", phone = "0228805477", isFavorite: initialIsFavorite = false, images = [] }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -71,6 +70,13 @@ const VendorCard = ({ id, name, address, rating, email = "contact@example.com", 
     ));
   };
 
+  // Modified image path logic
+  const displayImage = images && images.length > 0 
+    ? `/images/${images[2]}` // Update path to match your folder structure
+    : '/images/default-venue.jpg';
+
+  console.log('Image path:', displayImage); // Add this for debugging
+
   return (
     <div 
       className="flex flex-col p-4 lg:p-6 transition-all duration-200 cursor-pointer bg-white shadow-sm hover:shadow-lg rounded-xl"
@@ -80,7 +86,7 @@ const VendorCard = ({ id, name, address, rating, email = "contact@example.com", 
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-0">
         <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6 w-full lg:w-auto">
           <img 
-            src={testimg}
+            src={displayImage}
             alt={name} 
             className="w-full lg:w-28 h-40 lg:h-20 rounded-lg object-cover"
           />

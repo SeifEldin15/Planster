@@ -6,6 +6,10 @@ const router = express.Router();
 // Create a new venue
 router.post('/', async (req, res) => {
     try {
+        // Ensure images is an array if provided
+        if (req.body.images && !Array.isArray(req.body.images)) {
+            req.body.images = [req.body.images];
+        }
         const venue = await Venue.create(req.body);
         res.status(201).json(venue);
     } catch (error) {
@@ -39,6 +43,10 @@ router.get('/:id', async (req, res) => {
 // Update venue
 router.put('/:id', async (req, res) => {
     try {
+        // Ensure images is an array if provided
+        if (req.body.images && !Array.isArray(req.body.images)) {
+            req.body.images = [req.body.images];
+        }
         const venue = await Venue.findByIdAndUpdate(
             req.params.id, 
             req.body,
