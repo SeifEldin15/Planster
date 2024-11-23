@@ -21,16 +21,16 @@ const VendorCard = ({ name, address, rating, email = "contact@example.com", phon
 
   return (
     <div 
-      className="flex flex-col p-6 h transition-all duration-200 cursor-pointer bg-white shadow-sm hover:shadow-lg rounded-xl"
+      className="flex flex-col p-4 lg:p-6 transition-all duration-200 cursor-pointer bg-white shadow-sm hover:shadow-lg rounded-xl"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-6">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-0">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6 w-full lg:w-auto">
           <img 
             src={testimg}
             alt={name} 
-            className="w-28 h-20 rounded-lg object-cover"
+            className="w-full lg:w-28 h-40 lg:h-20 rounded-lg object-cover"
           />
           <div>
             <h3 className="text-xl font-semibold text-gray-800">{name}</h3>
@@ -38,8 +38,8 @@ const VendorCard = ({ name, address, rating, email = "contact@example.com", phon
           </div>
         </div>
         
-        <div className="flex items-end flex-col gap-6">
-          <div className='flex gap-2'>
+        <div className="flex flex-col lg:items-end gap-4 lg:gap-6 w-full lg:w-auto">
+          <div className='flex flex-col lg:flex-row items-start lg:items-center gap-2'>
             <p className="text-gray-500">Google Rating</p>
             <div className="flex gap-1">{renderStars(rating)}</div>
           </div>
@@ -60,9 +60,8 @@ const VendorCard = ({ name, address, rating, email = "contact@example.com", phon
         </div>
       </div>
 
-      {/* Additional Information Section */}
-      <div className={`mt-4 overflow-hidden transition-all duration-200 ${isHovered ? 'max-h-32 opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className=" pt-4 mt-2 space-y-2">
+      <div className={`mt-4 overflow-hidden transition-all duration-200 ${isHovered ? 'max-h-40 lg:max-h-32 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className="pt-4 mt-2 space-y-2">
           <p className="text-gray-600">
             <span className="font-medium">Location:</span> {address}
           </p>
