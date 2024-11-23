@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import testimg from '../../assets/testimg.jpg';
 
-const VendorCard = ({ id, name, address, rating, email = "contact@example.com", phone = "0228805477" }) => {
+const VendorCard = ({ id, name, address, rating, email = "contact@example.com", phone = "0228805477", isFavorite: initialIsFavorite = false }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+
+  // Load initial favorite state from localStorage or props
+  useEffect(() => {
+    const favoriteVendors = JSON.parse(localStorage.getItem('favoriteVendors') || '{}');
+    setIsFavorite(initialIsFavorite || favoriteVendors[id] || false);
+  }, [id, initialIsFavorite]);
 
   const handleFavoriteClick = async () => {
     try {
@@ -33,7 +39,17 @@ const VendorCard = ({ id, name, address, rating, email = "contact@example.com", 
       console.log('Toggle favorite response:', data);
 
       if (response.ok) {
-        setIsFavorite(!isFavorite);
+        const newFavoriteState = !isFavorite;
+        setIsFavorite(newFavoriteState);
+        
+        // Update localStorage
+        const favoriteVendors = JSON.parse(localStorage.getItem('favoriteVendors') || '{}');
+        if (newFavoriteState) {
+          favoriteVendors[id] = true;
+        } else {
+          delete favoriteVendors[id];
+        }
+        localStorage.setItem('favoriteVendors', JSON.stringify(favoriteVendors));
       }
     } catch (error) {
       console.error('Error toggling favorite:', error);
@@ -87,9 +103,9 @@ const VendorCard = ({ id, name, address, rating, email = "contact@example.com", 
             >
               <svg 
                 className={`w-5 h-5 ${isFavorite ? 'text-purple-600 fill-current' : 'text-purple-400'}`} 
-                fill="none" 
                 viewBox="0 0 24 24" 
                 stroke="currentColor"
+                fill={isFavorite ? "currentColor" : "none"}
               >
                 <path 
                   strokeLinecap="round" 
