@@ -1,8 +1,44 @@
 import React, { useState } from 'react';
 import testimg from '../../assets/testimg.jpg';
 
-const VendorCard = ({ name, address, rating, email = "contact@example.com", phone = "0228805477" }) => {
+const VendorCard = ({ id, name, address, rating, email = "contact@example.com", phone = "0228805477" }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const handleFavoriteClick = async () => {
+    try {
+      let token = localStorage.getItem('token');
+      console.log('Initial token:', token);
+      console.log('Vendor ID being sent:', id);
+
+      const response = await fetch('http://localhost:5000/api/favorites/toggle', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ 
+          vendorId: id 
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Server error:', errorData);
+        throw new Error(errorData.message || 'Failed to toggle favorite');
+      }
+
+      const data = await response.json();
+      console.log('Toggle favorite response:', data);
+
+      if (response.ok) {
+        setIsFavorite(!isFavorite);
+      }
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+    }
+  };
 
   const renderStars = (rating) => {
     const ratingInt = Math.round(rating);
@@ -45,9 +81,22 @@ const VendorCard = ({ name, address, rating, email = "contact@example.com", phon
           </div>
           
           <div className="flex items-center gap-3">
-            <button className="inline-flex items-center">
-              <svg className="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            <button 
+              onClick={handleFavoriteClick}
+              className="inline-flex items-center"
+            >
+              <svg 
+                className={`w-5 h-5 ${isFavorite ? 'text-purple-600 fill-current' : 'text-purple-400'}`} 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" 
+                />
               </svg>
             </button>
             <button className="px-4 py-1.5 text-sm text-gray-600 border border-gray-200 rounded-full hover:bg-gray-50">
