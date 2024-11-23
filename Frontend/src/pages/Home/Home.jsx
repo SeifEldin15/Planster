@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar from '../../components/Navbar/Navbar'
 import HeroSection from '../../components/HeroSection/HeroSection'
 import HowItWorks from '../../components/HowItWorks/HowItWorks'
@@ -8,6 +8,33 @@ import EventBookingSection from '../../components/EventBookingSection/EventBooki
 import EventVendors from '../../components/EventVendors/EventVendors'
 import BusinessesSlider from '../../components/BusinessesSlider/BusinessesSlider'
 const Home = () => {
+  useEffect(() => {
+    const checkAndCreateGuestToken = async () => {
+      const token = localStorage.getItem('token');
+      console.log('Existing token:', token);
+      
+      if (!token) {
+        try {
+          const response = await fetch('http://localhost:5000/api/auth/guest', {
+            method: 'POST',
+            credentials: 'include',
+          });
+          
+          const data = await response.json();
+          console.log('Response data:', data);
+          if (data.guestId) {
+            localStorage.setItem('token', data.token);
+            console.log('New token saved:', data.token);
+          }
+        } catch (error) {
+          console.error('Error creating guest token:', error);
+        }
+      }
+    };
+
+    checkAndCreateGuestToken();
+  }, []);
+
   return (
     <div>
       <Navbar />
