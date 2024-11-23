@@ -9,6 +9,14 @@ const venueSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    email: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
     images: {
         type: [String],  // Array of image names/paths
         default: []
@@ -22,9 +30,6 @@ const venueSchema = mongoose.Schema({
     reviews: {
         type: Number,
         default: 0
-    },
-    phone: {
-        type: String
     },
     category: {
         type: String,

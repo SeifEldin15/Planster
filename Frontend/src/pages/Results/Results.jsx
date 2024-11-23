@@ -128,6 +128,8 @@ const Results = () => {
             address={venue.address}
             rating={venue.rating}
             images={venue.images}
+            email={venue.email}
+            phone={venue.phone}
           />
         ))}
       </div>

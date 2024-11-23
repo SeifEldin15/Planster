@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const VendorCard = ({ id, name, address, rating, email = "contact@example.com", phone = "0228805477", isFavorite: initialIsFavorite = false, images = [] }) => {
+const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initialIsFavorite = false, images = [] }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
