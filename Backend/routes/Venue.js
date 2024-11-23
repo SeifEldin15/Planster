@@ -4,7 +4,7 @@ import Venue from '../models/venueModel.js';
 const router = express.Router();
 
 // Create a new venue
-router.post('/venues', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const venue = await Venue.create(req.body);
         res.status(201).json(venue);
@@ -14,7 +14,7 @@ router.post('/venues', async (req, res) => {
 });
 
 // Get all venues
-router.get('/venues', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const venues = await Venue.find({});
         res.status(200).json(venues);
@@ -24,7 +24,7 @@ router.get('/venues', async (req, res) => {
 });
 
 // Get single venue by ID
-router.get('/venues/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const venue = await Venue.findById(req.params.id);
         if (!venue) {
@@ -37,12 +37,12 @@ router.get('/venues/:id', async (req, res) => {
 });
 
 // Update venue
-router.put('/venues/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
         const venue = await Venue.findByIdAndUpdate(
             req.params.id, 
             req.body,
-            { new: true } // Returns the updated document
+            { new: true }
         );
         if (!venue) {
             return res.status(404).json({ message: 'Venue not found' });
@@ -54,7 +54,7 @@ router.put('/venues/:id', async (req, res) => {
 });
 
 // Delete venue
-router.delete('/venues/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try {
         const venue = await Venue.findByIdAndDelete(req.params.id);
         if (!venue) {
