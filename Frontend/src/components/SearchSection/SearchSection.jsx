@@ -22,8 +22,8 @@ const SearchSection = () => {
               key={category.name}
               className={`px-3 md:px-4 py-1.5 md:py-2 rounded-full text-sm ${
                 category.active 
-                  ? 'bg-indigo-500 text-white'
-                  : 'bg-indigo-100 text-indigo-600 hover:bg-indigo-200'
+                  ? 'bg-[var(--primary-color)] text-white'
+                  : 'bg-[var(--secondary-color)] text-[var(--primary-color)] hover:bg-[var(--secondary-color)]/80'
               }`}
             >
               {category.name}
