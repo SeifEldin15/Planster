@@ -79,13 +79,22 @@ const Results = () => {
   useEffect(() => {
     const fetchVenues = async () => {
       try {
-        const response = await fetch('http://localhost:5000/venues');
+        const response = await fetch('http://localhost:5000/api/venues', {
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        
         if (!response.ok) {
           throw new Error('Failed to fetch venues');
         }
+        
         const data = await response.json();
+        console.log('Fetched venues:', data);
         setVenues(data);
       } catch (err) {
+        console.error('Error fetching venues:', err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -113,7 +122,8 @@ const Results = () => {
       <div className="divide-y divide-gray-200 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
         {venues.map((venue) => (
           <VendorCard 
-            key={venue._id} 
+            key={venue._id}
+            id={venue._id}
             name={venue.name}
             address={venue.address}
             rating={venue.rating}
