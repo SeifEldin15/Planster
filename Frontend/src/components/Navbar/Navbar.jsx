@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from '../../assets/Group 111 logo.svg';
+import logo from '../../assets/the logo.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,7 +11,7 @@ const Navbar = () => {
           <img 
             src={logo} 
             alt="Planster Logo" 
-            className="h-12 w-12"
+            className="max-w-[120px]"
           />
         </div>
 
