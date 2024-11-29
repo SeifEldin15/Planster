@@ -1,30 +1,17 @@
-import express from 'express';
 import Venue from '../models/venueModel.js';
 
-const router = express.Router();
-
-// Create a new venue
-router.post('/venues', async (req, res) => {
+export const getAllVenues = async (req, res) => {
     try {
-        const venue = await Venue.create(req.body);
-        res.status(201).json(venue);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-});
-
-// Get all venues
-router.get('/venues', async (req, res) => {
-    try {
-        const venues = await Venue.find({});
+        const limit = parseInt(req.query.limit) || 10;
+        console.log('Fetching venues with limit:', limit);
+        const venues = await Venue.find({}).limit(limit);
         res.status(200).json(venues);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+};
 
-// Get single venue by ID
-router.get('/venues/:id', async (req, res) => {
+export const getVenueById = async (req, res) => {
     try {
         const venue = await Venue.findById(req.params.id);
         if (!venue) {
@@ -34,15 +21,29 @@ router.get('/venues/:id', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
+};
 
-// Update venue
-router.put('/venues/:id', async (req, res) => {
+export const createVenue = async (req, res) => {
     try {
+        if (req.body.images && !Array.isArray(req.body.images)) {
+            req.body.images = [req.body.images];
+        }
+        const venue = await Venue.create(req.body);
+        res.status(201).json(venue);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+export const updateVenue = async (req, res) => {
+    try {
+        if (req.body.images && !Array.isArray(req.body.images)) {
+            req.body.images = [req.body.images];
+        }
         const venue = await Venue.findByIdAndUpdate(
             req.params.id, 
             req.body,
-            { new: true } // Returns the updated document
+            { new: true }
         );
         if (!venue) {
             return res.status(404).json({ message: 'Venue not found' });
@@ -51,10 +52,9 @@ router.put('/venues/:id', async (req, res) => {
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
-});
+};
 
-// Delete venue
-router.delete('/venues/:id', async (req, res) => {
+export const deleteVenue = async (req, res) => {
     try {
         const venue = await Venue.findByIdAndDelete(req.params.id);
         if (!venue) {
@@ -64,6 +64,4 @@ router.delete('/venues/:id', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
-
-export default router;
+}; 

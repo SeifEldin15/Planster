@@ -79,7 +79,7 @@ const Results = () => {
   useEffect(() => {
     const fetchVenues = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/venues', {
+        const response = await fetch('http://localhost:5000/api/venues?limit=1', {
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json'
