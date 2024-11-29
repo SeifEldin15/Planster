@@ -20,7 +20,6 @@ const HeroSection = () => {
       </style>
       
       <div className="relative min-h-[600px] flex items-center justify-center bg-white p-8">
-        {/* Background Cards */}
         <div className="absolute left-16 top-1/4 transform -rotate-12 background-card">
           <img src={Card1} alt="Card 1" className="rounded-xl p-6 w-64 h-64 flex flex-col justify-end" />
         </div>
@@ -33,7 +32,6 @@ const HeroSection = () => {
           <img src={Card3} alt="Card 3" className="rounded-xl p-6 w-64 h-64 flex flex-col justify-end" />
         </div>
 
-        {/* Main Content */}
         <div className="max-w-3xl mx-auto text-center z-10">
           <h1 className="text-4xl font-bold mb-6">
             Event Planning Simplified with{' '}
