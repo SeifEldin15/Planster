@@ -1,15 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import { useNavigate } from 'react-router-dom';
 
-const SearchSection = () => {
-  const categories = [
-    { name: 'Venue', active: true },
-    { name: 'Photographer', active: false },
-    { name: 'Chair Hire', active: false },
-    { name: 'Decoration', active: false },
-    { name: 'Officiant', active: false },
-    { name: 'Transport', active: false },
-  ];
+const SearchSection = ({ onSearch, initialSearchTerm = '', initialCategory = 'Wedding venue' }) => {
+  const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
+  const [categories, setCategories] = useState([
+    { name: 'Wedding venue', active: initialCategory === 'Wedding venue' },
+    { name: 'Photographer', active: initialCategory === 'Photographer' },
+    { name: 'Chair Hire', active: initialCategory === 'Chair Hire' },
+    { name: 'Decoration', active: initialCategory === 'Decoration' },
+    { name: 'Officiant', active: initialCategory === 'Officiant' },
+    { name: 'Transport', active: initialCategory === 'Transport' },
+  ]);
+  const navigate = useNavigate();
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    const activeCategory = categories.find(cat => cat.active)?.name || 'Wedding venue';
+    onSearch(searchTerm, activeCategory);
+    navigate(`/results?keyword=${encodeURIComponent(searchTerm)}&category=${encodeURIComponent(activeCategory)}`);
+  };
+
+  const handleCategoryClick = (clickedCategory) => {
+    const updatedCategories = categories.map(category => ({
+      ...category,
+      active: category.name === clickedCategory
+    }));
+    setCategories(updatedCategories);
+    
+    // Trigger search with new category
+    const activeCategory = clickedCategory;
+    onSearch(searchTerm, activeCategory);
+    navigate(`/results?keyword=${encodeURIComponent(searchTerm)}&category=${encodeURIComponent(activeCategory)}`);
+  };
 
   return (
     <div className="px-4 py-6 max-w-[85%] mx-auto">
@@ -20,6 +43,7 @@ const SearchSection = () => {
           {categories.map((category) => (
             <button
               key={category.name}
+              onClick={() => handleCategoryClick(category.name)}
               className={`px-3 md:px-4 py-1.5 md:py-2 rounded-full text-sm ${
                 category.active 
                   ? 'bg-[var(--primary-color)] text-white'
@@ -30,14 +54,18 @@ const SearchSection = () => {
             </button>
           ))}
         </div>
-        <div className="relative w-full md:w-64 lg:w-80">
+        <form onSubmit={handleSearch} className="relative w-full md:w-64 lg:w-80">
           <input
             type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search..."
             className="w-full px-4 py-2 pl-10 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
-          <MagnifyingGlassIcon className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-        </div>
+          <button type="submit">
+            <MagnifyingGlassIcon className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+          </button>
+        </form>
       </div>
     </div>
   );
