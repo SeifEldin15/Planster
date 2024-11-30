@@ -39,7 +39,7 @@ const Home = () => {
     <div>
       <Navbar />
       <HeroSection />
-      <BusinessesSlider />
+      {/* <BusinessesSlider /> */}
       <HowItWorks />
       <FAQ />
       <EventBookingSection />

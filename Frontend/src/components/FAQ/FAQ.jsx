@@ -29,7 +29,7 @@ const FAQ = () => {
     ];
 
     return (
-        <div className="relative bg-white  py-10 max-w-[1300px] mx-auto">
+        <div className="relative bg-white  py-10 max-w-[1300px] mx-auto" id="faq">
             <div className="mx-auto max-w-7xl px-5">
                 <div className="flex flex-col items-center">
                     <h2 className="mt-5 text-center text-3xl font-bold tracking-tight md:text-5xl">FAQ</h2>
