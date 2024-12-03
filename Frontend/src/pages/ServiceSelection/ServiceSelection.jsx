@@ -59,22 +59,32 @@ const ServiceSelection = () => {
   return (
     <>
       <Navbar />
-      <div className="py-6 bg-white rounded-lg shadow-sm max-w-[1300px] mx-auto px-4">
-        <h1 className="text-2xl font-semibold mb-6">Let's see what you need...</h1>
-        <p className="text-gray-600 mb-8">
-          There are 1082 results for your location
-        </p>
+      <div className="max-w-[1300px] mx-auto px-8 py-12">
+    <div className="flex items-center mb-12">
 
-        <div className="flex gap-2 flex-wrap mb-8">
+    <h1 className="text-4xl">
+          {eventType || 'Wedding'}
+        </h1>
+
+        <div className="bg-[var(--secondary-color)] rounded-full  inline-block ml-4 flex items-center mt-3">
+          <p className="text-[var(--primary-color)] px-6 py-1">
+            There are 1082 results for your location
+          </p>
+        </div>
+    </div>
+        <h2 className="text-4xl text-gray-600 mb-8">Let's see what you need...</h2>
+        <div className="grid grid-cols-6 gap-3 mb-12">
           {currentServices.map((service) => (
             <button
               key={service.id}
               onClick={() => toggleService(service.id)}
-              className={`px-4 py-2 rounded-md transition-colors ${
-                selectedServices.includes(service.id)
-                  ? 'bg-[var(--primary-color)] text-white hover:bg-[var(--hover-color)]'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
+              className={`
+                px-4 py-2 rounded-lg text-base transition-colors border border-[var(--primary-color)]
+                ${selectedServices.includes(service.id)
+                  ? 'bg-[var(--primary-color)] text-white'
+                  : 'bg-[var(--secondary-color)] text-[var(--primary-color)]'
+                }
+              `}
             >
               {service.label}
             </button>
@@ -84,13 +94,16 @@ const ServiceSelection = () => {
         <button
           onClick={handleNext}
           disabled={selectedServices.length === 0}
-          className={`flex items-center px-4 py-2 rounded-md transition-colors ${
-            selectedServices.length === 0
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-              : 'bg-[var(--primary-color)] text-white hover:bg-[var(--hover-color)]'
-          }`}
+          className={`
+            px-6 py-2 rounded-lg text-base flex items-center gap-2 border border-[var(--primary-color)]
+            ${selectedServices.length === 0 
+              ? 'bg-[var(--secondary-color)] text-[var(--primary-color)] opacity-50 cursor-not-allowed'
+              : 'bg-[var(--secondary-color)] text-[var(--primary-color)]'
+            }
+          `}
         >
           Next
+          <span className="text-lg">→</span>
         </button>
       </div>
     </>

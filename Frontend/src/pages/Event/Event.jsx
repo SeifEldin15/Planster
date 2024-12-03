@@ -59,11 +59,13 @@ const Event = () => {
               <button
                 key={type.id}
                 onClick={() => setSelectedEventType(type.id)}
-                className={`px-4 py-2 rounded-md transition-colors ${
-                  type.id === selectedEventType 
-                    ? 'bg-[var(--primary-color)] text-white hover:bg-[var(--hover-color)]'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                className={`
+                  px-4 py-2 rounded-lg text-base transition-colors border border-[var(--primary-color)]
+                  ${type.id === selectedEventType
+                    ? 'bg-[var(--primary-color)] text-white'
+                    : 'bg-[var(--secondary-color)] text-[var(--primary-color)]'
+                  }
+                `}
               >
                 {type.label}
               </button>
@@ -115,12 +117,16 @@ const Event = () => {
 
         <button 
           onClick={handleNext}
-          className="flex items-center px-4 py-2 bg-[var(--primary-color)] text-white rounded-md hover:bg-[var(--hover-color)] transition-colors"
+          className={`
+            px-6 py-2 rounded-lg text-base flex items-center gap-2 border border-[var(--primary-color)]
+            ${!location.trim()
+              ? 'bg-[var(--secondary-color)] text-[var(--primary-color)] opacity-50 cursor-not-allowed'
+              : 'bg-[var(--secondary-color)] text-[var(--primary-color)]'
+            }
+          `}
         >
           Next
-          <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
+          <span className="text-lg">→</span>
         </button>
       </div>
     </div>
