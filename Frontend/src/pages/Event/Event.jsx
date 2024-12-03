@@ -1,10 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Search } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar/Navbar';
 
 const Event = () => {
+  const navigate = useNavigate();
   const [location, setLocation] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedEventType, setSelectedEventType] = useState('party');
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const eventTypes = [
     { id: 'party', label: 'Party' },
@@ -20,10 +37,16 @@ const Event = () => {
     { id: 4, name: 'Sydney CBD Public Space, 22121' }
   ];
 
+  const handleNext = () => {
+    if (location.trim()) {
+      navigate(`/service-selection?location=${encodeURIComponent(location)}&category=${encodeURIComponent(selectedEventType)}`);
+    }
+  };
+
   return (
     <>
     <Navbar />
-    <div className=" py-6 bg-white rounded-lg shadow-sm max-w-[1300px] mx-auto ">
+    <div className="py-6 bg-white rounded-lg shadow-sm max-w-[1300px] mx-auto">
       <h1 className="text-2xl font-semibold mb-6">Create an event</h1>
       
       <div className="space-y-6">
@@ -35,10 +58,11 @@ const Event = () => {
             {eventTypes.map((type) => (
               <button
                 key={type.id}
-                className={`px-4 py-2 rounded-md ${
-                  type.id === 'party' 
-                    ? 'bg-indigo-500 text-white'
-                    : 'bg-indigo-100 text-indigo-600 hover:bg-indigo-200'
+                onClick={() => setSelectedEventType(type.id)}
+                className={`px-4 py-2 rounded-md transition-colors ${
+                  type.id === selectedEventType 
+                    ? 'bg-[var(--primary-color)] text-white hover:bg-[var(--hover-color)]'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
                 {type.label}
@@ -51,7 +75,7 @@ const Event = () => {
           <label className="block text-sm font-medium mb-2">
             Where is it located in Australia?
           </label>
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <div className="relative">
               <input
                 type="text"
@@ -89,7 +113,10 @@ const Event = () => {
           </p>
         </div>
 
-        <button className="flex items-center px-4 py-2 bg-indigo-100 text-indigo-600 rounded-md hover:bg-indigo-200">
+        <button 
+          onClick={handleNext}
+          className="flex items-center px-4 py-2 bg-[var(--primary-color)] text-white rounded-md hover:bg-[var(--hover-color)] transition-colors"
+        >
           Next
           <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

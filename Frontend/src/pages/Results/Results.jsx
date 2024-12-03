@@ -87,11 +87,16 @@ const Results = () => {
   const [searchTerm, setSearchTerm] = useState(initialKeyword);
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
 
+  // Add services to the state
+  const initialServices = searchParams.get('services')?.split(',') || [];
+  const [selectedServices, setSelectedServices] = useState(initialServices);
+
   const fetchVenues = async (pageNum, keyword = '', category = 'Wedding venue') => {
     try {
       setLoading(true);
+      const servicesParam = selectedServices.length > 0 ? `&services=${selectedServices.join(',')}` : '';
       const response = await fetch(
-        `http://localhost:5000/api/venues?limit=${VENUES_PER_PAGE}&page=${pageNum}&keyword=${keyword}&category=${category}`, // Include category in the request
+        `http://localhost:5000/api/venues?limit=${VENUES_PER_PAGE}&page=${pageNum}&keyword=${keyword}&category=${category}${servicesParam}`,
         {
           credentials: 'include',
           headers: {

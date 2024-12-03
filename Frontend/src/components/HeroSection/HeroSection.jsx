@@ -12,8 +12,8 @@ const HeroSection = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchValue.trim()) {
-      // Navigate to results page with search parameters
-      navigate(`/results?keyword=${encodeURIComponent(searchValue)}&category=Wedding venue`);
+      // Navigate to event page with pre-filled location
+      navigate(`/event?location=${encodeURIComponent(searchValue)}`);
     }
   };
 
