@@ -146,44 +146,62 @@ const Results = () => {
     setPage(1);
     fetchVenues(1, term, category);
   };
-
+ 
   return (
     <>
-    <Navbar />
-    <SearchSection 
-      onSearch={handleSearch} 
-      initialSearchTerm={searchTerm} 
-      initialCategory={selectedCategory}
-    />
-    <Slider images={images} />
-    <div className="max-w-[85%] mx-auto p-6">
-      <h2 className="text-2xl font-semibold mb-6">Local Vendors</h2>
-      <div className="divide-y divide-gray-200 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-        {venues.map((venue) => (
-          <VendorCard 
-            key={venue._id}
-            id={venue._id}
-            name={venue.name}
-            address={venue.address}
-            rating={venue.rating}
-            images={venue.images}
-            email={venue.email}
-            phone={venue.phone}
-          />
-        ))}
-      </div>
-      {hasMore && (
-        <div className="flex justify-center mt-8">
-          <button 
-            onClick={handleLoadMore} 
-            className="px-4 py-2 bg-[var(--primary-color)] hover:bg-[var(--hover-color)] text-white rounded-md transition-colors"
-          >
-            Load More
-          </button>
+      <Navbar />
+      <SearchSection 
+        onSearch={handleSearch} 
+        initialSearchTerm={searchTerm} 
+        initialCategory={selectedCategory}
+      />
+      <Slider images={images} />
+      
+      {/* Full page loading overlay */}
+      {loading && (
+        <div className="fixed inset-0 bg-white/80 backdrop-blur-sm z-50 flex justify-center items-center">
+          <div className="text-center">
+            <div className="w-full text-center mb-4 text-lg text-purple-600">
+              We are currently searching for results for your wedding...
+            </div>
+            <div className="w-48 h-1 bg-gray-200 rounded-full mx-auto">
+              <div className="w-1/3 h-1 bg-purple-600 rounded-full animate-[loading_1s_ease-in-out_infinite]"></div>
+            </div>
+          </div>
         </div>
       )}
-    </div>
-    {/* <Footer /> */}
+
+      <div className="max-w-[85%] mx-auto p-6">
+        <h2 className="text-2xl font-semibold mb-6">Local Vendors</h2>
+        
+        {/* Show venues */}
+        <div className="divide-y divide-gray-200 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+          {venues.map((venue) => (
+            <VendorCard 
+              key={venue._id}
+              id={venue._id}
+              name={venue.name}
+              address={venue.address}
+              rating={venue.rating}
+              images={venue.images}
+              email={venue.email}
+              phone={venue.phone}
+            />
+          ))}
+        </div>
+
+        {/* Show load more button only when not loading and has more results */}
+        {!loading && hasMore && (
+          <div className="flex justify-center mt-8">
+            <button 
+              onClick={handleLoadMore} 
+              className="px-4 py-2 bg-[var(--primary-color)] hover:bg-[var(--hover-color)] text-white rounded-md transition-colors"
+            >
+              Load More
+            </button>
+          </div>
+        )}
+      </div>
     </>
   );
 };

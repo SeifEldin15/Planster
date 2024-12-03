@@ -8,12 +8,17 @@ export default {
     extend: {
       animation: {
         slide: 'slide 20s linear infinite',
+        loading: 'loading 1s ease-in-out infinite',
       },
       keyframes: {
         slide: {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-100%)' },
-        }
+        },
+        loading: {
+          '0%': { transform: 'translateX(-200%)' },
+          '100%': { transform: 'translateX(200%)' }
+        },
       },
     },
   },
