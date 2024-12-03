@@ -11,32 +11,32 @@ const ServiceSelection = () => {
 
   const services = {
     party: [
-      { id: 'venue', label: 'Venue', icon: '🏰' },
-      { id: 'catering', label: 'Catering', icon: '🍽️' },
-      { id: 'entertainment', label: 'Entertainment', icon: '🎵' },
-      { id: 'decoration', label: 'Decoration', icon: '🎨' }
+      { id: 'venue', label: 'Venue' },
+      { id: 'catering', label: 'Catering' },
+      { id: 'entertainment', label: 'Entertainment' },
+      { id: 'decoration', label: 'Decoration' }
     ],
     wedding: [
-      { id: 'venue', label: 'Venue', icon: '🏰' },
-      { id: 'catering', label: 'Catering', icon: '🍽️' },
-      { id: 'chairHire', label: 'Chair Hire', icon: '💺' },
-      { id: 'photographer', label: 'Photographer', icon: '📸' },
-      { id: 'decoration', label: 'Decoration', icon: '🎨' },
-      { id: 'officiant', label: 'Officiant', icon: '👔' },
-      { id: 'transport', label: 'Transport', icon: '🚗' },
-      { id: 'makeup', label: 'Makeup', icon: '💄' }
+      { id: 'venue', label: 'Venue' },
+      { id: 'catering', label: 'Catering' },
+      { id: 'chairHire', label: 'Chair Hire' },
+      { id: 'photographer', label: 'Photographer' },
+      { id: 'decoration', label: 'Decoration' },
+      { id: 'officiant', label: 'Officiant' },
+      { id: 'transport', label: 'Transport' },
+      { id: 'makeup', label: 'Makeup' }
     ],
     corporate: [
-      { id: 'venue', label: 'Venue', icon: '🏢' },
-      { id: 'catering', label: 'Catering', icon: '🍽️' },
-      { id: 'av-equipment', label: 'AV Equipment', icon: '🎥' },
-      { id: 'decoration', label: 'Decoration', icon: '🎨' }
+      { id: 'venue', label: 'Venue' },
+      { id: 'catering', label: 'Catering' },
+      { id: 'av-equipment', label: 'AV Equipment' },
+      { id: 'decoration', label: 'Decoration' }
     ],
     music: [
-      { id: 'venue', label: 'Venue', icon: '🏟️' },
-      { id: 'sound-system', label: 'Sound System', icon: '🔊' },
-      { id: 'lighting', label: 'Lighting', icon: '💡' },
-      { id: 'security', label: 'Security', icon: '👮' }
+      { id: 'venue', label: 'Venue' },
+      { id: 'sound-system', label: 'Sound System' },
+      { id: 'lighting', label: 'Lighting' },
+      { id: 'security', label: 'Security' }
     ]
   };
 
@@ -65,19 +65,18 @@ const ServiceSelection = () => {
           There are 1082 results for your location
         </p>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
+        <div className="flex gap-2 flex-wrap mb-8">
           {currentServices.map((service) => (
             <button
               key={service.id}
               onClick={() => toggleService(service.id)}
-              className={`p-4 rounded-lg text-left transition-all ${
+              className={`px-4 py-2 rounded-md transition-colors ${
                 selectedServices.includes(service.id)
-                  ? 'bg-indigo-500 text-white'
-                  : 'bg-indigo-50 text-indigo-600 hover:bg-indigo-100'
+                  ? 'bg-[var(--primary-color)] text-white hover:bg-[var(--hover-color)]'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              <span className="text-2xl mr-2">{service.icon}</span>
-              <span className="font-medium">{service.label}</span>
+              {service.label}
             </button>
           ))}
         </div>
@@ -85,10 +84,10 @@ const ServiceSelection = () => {
         <button
           onClick={handleNext}
           disabled={selectedServices.length === 0}
-          className={`flex items-center px-6 py-3 rounded-md transition-all ${
+          className={`flex items-center px-4 py-2 rounded-md transition-colors ${
             selectedServices.length === 0
               ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-              : 'bg-indigo-500 text-white hover:bg-indigo-600'
+              : 'bg-[var(--primary-color)] text-white hover:bg-[var(--hover-color)]'
           }`}
         >
           Next
