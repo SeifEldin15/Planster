@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar/Navbar';
+import locationData from '../../data/locations.json';
 
 const Event = () => {
   const navigate = useNavigate();
@@ -9,6 +10,7 @@ const Event = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedEventType, setSelectedEventType] = useState('party');
   const dropdownRef = useRef(null);
+  const [filteredLocations, setFilteredLocations] = useState([]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -25,17 +27,30 @@ const Event = () => {
 
   const eventTypes = [
     { id: 'party', label: 'Party' },
-    { id: 'wedding', label: 'Wedding' },
+    { id: 'Wedding venue', label: 'Wedding' },
     { id: 'corporate', label: 'Corporate' },
     { id: 'music', label: 'Music Event' }
   ];
 
-  const locations = [
-    { id: 1, name: 'Sydney CBD, 22023' },
-    { id: 2, name: 'Sydney Business District, 22012' },
-    { id: 3, name: 'Sydney Fair, 22215' },
-    { id: 4, name: 'Sydney CBD Public Space, 22121' }
-  ];
+  const filterLocations = (searchText) => {
+    if (!searchText) {
+      setFilteredLocations([]);
+      return;
+    }
+
+    const filtered = locationData.filter(loc => 
+      loc.place_name.toLowerCase().includes(searchText.toLowerCase())
+    ).slice(0, 5); // Limit to 5 results for better UX
+
+    setFilteredLocations(filtered);
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setLocation(value);
+    setShowDropdown(true);
+    filterLocations(value);
+  };
 
   const handleNext = () => {
     if (location.trim()) {
@@ -82,10 +97,7 @@ const Event = () => {
               <input
                 type="text"
                 value={location}
-                onChange={(e) => {
-                  setLocation(e.target.value);
-                  setShowDropdown(true);
-                }}
+                onChange={handleInputChange}
                 onFocus={() => setShowDropdown(true)}
                 placeholder="Sydney CBD"
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -93,18 +105,18 @@ const Event = () => {
               <Search className="absolute right-3 top-2.5 text-gray-400" size={20} />
             </div>
             
-            {showDropdown && (
+            {showDropdown && filteredLocations.length > 0 && (
               <div className="absolute w-full mt-1 bg-white border rounded-md shadow-lg z-10">
-                {locations.map((loc) => (
+                {filteredLocations.map((loc) => (
                   <div
-                    key={loc.id}
+                    key={loc.postcode}
                     className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                     onClick={() => {
-                      setLocation(loc.name);
+                      setLocation(loc.place_name);
                       setShowDropdown(false);
                     }}
                   >
-                    {loc.name}
+                    {loc.place_name}
                   </div>
                 ))}
               </div>

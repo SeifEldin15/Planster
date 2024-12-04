@@ -17,7 +17,7 @@ const ServiceSelection = () => {
       { id: 'decoration', label: 'Decoration' }
     ],
     wedding: [
-      { id: 'venue', label: 'Venue' },
+      { id: 'Wedding venue', label: 'Venue' },
       { id: 'catering', label: 'Catering' },
       { id: 'chairHire', label: 'Chair Hire' },
       { id: 'photographer', label: 'Photographer' },
