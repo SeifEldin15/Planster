@@ -9,7 +9,7 @@ const guestUserSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    expires: 604800 // Documents will be automatically deleted after 7 days
+    expires: 604800 
   }
 });
 
