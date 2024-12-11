@@ -18,7 +18,7 @@ const venueSchema = mongoose.Schema({
         required: true
     },
     images: {
-        type: [String],  // Array of image names/paths
+        type: [String], 
         default: []
     },
     rating: {
@@ -39,7 +39,7 @@ const venueSchema = mongoose.Schema({
         type: String
     }
 }, {
-    timestamps: true // Adds createdAt and updatedAt fields automatically
+    timestamps: true 
 });
 
 const Venue = mongoose.model('Venue', venueSchema);
