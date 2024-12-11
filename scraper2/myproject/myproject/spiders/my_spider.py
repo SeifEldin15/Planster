@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+import re
 
 class LocationSpider(Spider):
     name = "myspider"
@@ -13,6 +14,7 @@ class LocationSpider(Spider):
 
     def __init__(self):
         self.driver = webdriver.Chrome() 
+
     def parse(self, response):
         self.driver.get(response.url)
         
@@ -57,7 +59,13 @@ class LocationSpider(Spider):
                     continue
                     
                 processed_names.add(name)
+
+                # Extracting email and phone number from venue details or description
+                details_text = venue.text
                 
+                email = self.extract_email(details_text)
+                phone_number = self.extract_phone_number(details_text)
+
                 try:
                     image_element = venue.find_element(By.CSS_SELECTOR, 'img[src^="https"]')
                     image_url = image_element.get_attribute('src')
@@ -108,10 +116,24 @@ class LocationSpider(Spider):
                         'reviews': reviews,
                         'area': response.url.split('venues+')[-1].replace('+', ' '),
                         'image_url': image_url,
+                        'email': email,
+                        'phone_number': phone_number,
                     }
             except Exception as e:
                 self.logger.error(f"Error processing venue: {str(e)}")
                 continue
+
+    def extract_email(self, text):
+        """Extract email from the given text using regex."""
+        email_pattern = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+        emails_found = re.findall(email_pattern, text)
+        return emails_found[0] if emails_found else None
+
+    def extract_phone_number(self, text):
+        """Extract phone number from the given text using regex."""
+        phone_pattern = r'\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}'
+        phones_found = re.findall(phone_pattern, text)
+        return phones_found[0] if phones_found else None
 
     def closed(self, reason):
         self.driver.quit()
