@@ -72,7 +72,7 @@ const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initi
 
   // Modified image path logic
   const displayImage = images && images.length > 0 
-    ? `/images/${images[2]}` // Update path to match your folder structure
+    ? `/images/${images[0]}` // Update path to match your folder structure
     : '/images/default-venue.jpg';
 
   console.log('Image path:', displayImage); // Add this for debugging

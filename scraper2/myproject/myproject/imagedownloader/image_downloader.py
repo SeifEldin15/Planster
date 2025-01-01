@@ -2,13 +2,24 @@ import json
 import os
 import requests
 from urllib.parse import urlparse
+import re
+
+# Function to clean the address field
+def clean_address(address):
+    """
+    Cleans the address by removing unwanted or non-ASCII characters.
+    """
+    if not address:
+        return address  # Return as is if None or empty
+    # Remove non-ASCII characters and strip whitespace
+    return re.sub(r'[^\x20-\x7E]', '', address).strip()
 
 # Create images directory if it doesn't exist
 IMAGES_DIR = "venue_images"
 os.makedirs(IMAGES_DIR, exist_ok=True)
 
 # Read the JSON file
-with open("../output.json", "r") as f:
+with open("../../venue_details.json", "r") as f:
     venues = json.load(f)
 
 # List to hold updated venue data
@@ -17,6 +28,10 @@ updated_venues = []
 # Download images for each venue
 for venue in venues:
     try:
+        # Clean the address field
+        if 'address' in venue and venue['address']:
+            venue['address'] = clean_address(venue['address'])
+
         # Check if 'image_url' exists in the venue
         if 'image_url' not in venue or not venue['image_url']:
             print("No image URL found for a venue. Skipping...")
