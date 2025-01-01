@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar/Navbar';
-import locationData from '../../data/locations.json';
+import locationData from '../../Data/locations.json';
 
 const Event = () => {
   const navigate = useNavigate();
