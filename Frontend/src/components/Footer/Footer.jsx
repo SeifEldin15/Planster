@@ -35,9 +35,6 @@ const Footer = () => {
               <a href="#" className="hover:text-gray-900 transition-colors">
                 Licensing
               </a>
-              <a href="#" className="hover:text-gray-900 transition-colors">
-                Licensing 2
-              </a>
             </div>
 
             <div className="text-sm text-gray-600">
