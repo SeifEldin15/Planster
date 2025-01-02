@@ -15,7 +15,7 @@ const Home = () => {
       
       if (!token) {
         try {
-          const response = await fetch('https://planster.com.au:5000/api/auth/guest', {
+          const response = await fetch('https://planster.com.au/api/auth/guest', {
             method: 'POST',
             credentials: 'include',
           });

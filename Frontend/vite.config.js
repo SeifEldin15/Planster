@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://planster.com.au:5000',
+        target: 'https://planster.com.au',
         changeOrigin: true,
       }
     }

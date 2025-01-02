@@ -2,7 +2,7 @@ import json
 import requests
 
 # Define your API endpoint
-API_ENDPOINT = "https://planster.com.au:5000/api/venues"  # Replace with your actual API URL
+API_ENDPOINT = "https://planster.com.au/api/venues"  # Replace with your actual API URL
 
 # Read the JSON file containing venue data
 with open("../imagedownloader/output.json", "r") as f:

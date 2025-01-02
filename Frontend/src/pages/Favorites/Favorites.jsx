@@ -18,7 +18,7 @@ const Favorites = () => {
           throw new Error('No authentication token found');
         }
 
-        const response = await fetch('https://planster.com.au:5000/api/favorites', {
+        const response = await fetch('https://planster.com.au/api/favorites', {
           method: 'GET',
           credentials: 'include',
           headers: {

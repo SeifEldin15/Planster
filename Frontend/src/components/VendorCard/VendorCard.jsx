@@ -16,7 +16,7 @@ const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initi
       console.log('Initial token:', token);
       console.log('Vendor ID being sent:', id);
 
-      const response = await fetch('https://planster.com.au:5000/api/favorites/toggle', {
+      const response = await fetch('https://planster.com.au/api/favorites/toggle', {
         method: 'POST',
         credentials: 'include',
         headers: {
