@@ -96,7 +96,7 @@ const Results = () => {
       setLoading(true);
       const servicesParam = selectedServices.length > 0 ? `&services=${selectedServices.join(',')}` : '';
       const response = await fetch(
-        `http://localhost:5000/api/venues?limit=${VENUES_PER_PAGE}&page=${pageNum}&keyword=${keyword}&category=${category}${servicesParam}`,
+        `https://planster.com.au:5000/api/venues?limit=${VENUES_PER_PAGE}&page=${pageNum}&keyword=${keyword}&category=${category}${servicesParam}`,
         {
           credentials: 'include',
           headers: {
