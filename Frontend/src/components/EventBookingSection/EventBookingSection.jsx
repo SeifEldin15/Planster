@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import eventImage from './21.jpg'; // Add this import
 
 const EventCard = ({ title, imageSrc }) => (
@@ -15,6 +16,8 @@ const EventCard = ({ title, imageSrc }) => (
 );
 
 const EventBookingSection = () => {
+  const navigate = useNavigate();
+
   const events = [
     {
       title: "Weddings",
@@ -55,6 +58,7 @@ const EventBookingSection = () => {
 
       <div className="flex justify-center">
         <button
+          onClick={() => navigate('/event')}
           className="bg-[var(--primary-color)] text-white px-12 py-3 rounded-lg 
                    hover:opacity-90 transition-colors duration-300
                    text-lg font-medium w-64"

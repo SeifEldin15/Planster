@@ -1,6 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import purplegradient from '../../assets/bar1.webp'
+
 const EventVendors = () => {
+  const navigate = useNavigate();
+  
   return (
     <div className="relative w-full h-[300px]  overflow-hidden max-w-[1300px] mx-auto mb-16">
       <img 
@@ -24,7 +28,9 @@ const EventVendors = () => {
             Use us to market your business organically<br />
             we'll let you know how we perform.
           </p>
-          <button className="bg-[var(--tertiary-color)] text-white px-6 py-2 rounded-full 
+          <button 
+            onClick={() => navigate('/event')}
+            className="bg-[var(--tertiary-color)] text-white px-6 py-2 rounded-full 
             hover:bg-[var(--hover-color)] transition-all duration-300 font-medium flex items-center gap-2 md:mr-[9rem]">
             Get Started 
             <span className="text-lg">→</span>
