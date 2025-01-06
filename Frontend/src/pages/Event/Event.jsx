@@ -61,21 +61,21 @@ const Event = () => {
   return (
     <>
     <Navbar />
-    <div className="py-6 bg-white rounded-lg shadow-sm max-w-[1300px] mx-auto">
-      <h1 className="text-2xl font-semibold mb-6">Create an event</h1>
+    <div className="py-6 px-4 sm:px-6 bg-white rounded-lg shadow-sm max-w-[1300px] mx-auto">
+      <h1 className="text-xl sm:text-2xl font-semibold mb-6">Create an event</h1>
       
       <div className="space-y-6">
         <div>
           <label className="block text-sm font-medium mb-2">
             Type of event
           </label>
-          <div className="flex gap-2 flex-wrap">
+          <div className="flex gap-1 sm:gap-2 flex-wrap">
             {eventTypes.map((type) => (
               <button
                 key={type.id}
                 onClick={() => setSelectedEventType(type.id)}
                 className={`
-                  px-4 py-2 rounded-lg text-base transition-colors border border-[var(--primary-color)]
+                  px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-sm sm:text-base transition-colors border border-[var(--primary-color)]
                   ${type.id === selectedEventType
                     ? 'bg-[var(--primary-color)] text-white'
                     : 'bg-[var(--secondary-color)] text-[var(--primary-color)]'
@@ -130,7 +130,7 @@ const Event = () => {
         <button 
           onClick={handleNext}
           className={`
-            px-6 py-2 rounded-lg text-base flex items-center gap-2 border border-[var(--primary-color)]
+            px-4 sm:px-6 py-2 rounded-lg text-sm sm:text-base flex items-center gap-2 border border-[var(--primary-color)]
             ${!location.trim()
               ? 'bg-[var(--secondary-color)] text-[var(--primary-color)] opacity-50 cursor-not-allowed'
               : 'bg-[var(--secondary-color)] text-[var(--primary-color)]'
