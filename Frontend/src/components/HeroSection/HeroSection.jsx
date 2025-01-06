@@ -21,7 +21,7 @@ const HeroSection = () => {
       </style>
       
       <div className="relative min-h-[600px] flex items-center justify-center bg-white p-8">
-        <div className="absolute left-16 top-1/4 transform -rotate-12 background-card">
+        <div className="absolute left-16 top-[300px] transform -rotate-12 background-card">
           <img src={Card1} alt="Card 1" className="rounded-xl p-6 w-64 h-64 flex flex-col justify-end" />
         </div>
         
