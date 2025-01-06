@@ -6,17 +6,8 @@ import Card3 from '../../assets/card3.svg';
 import { useState } from 'react';
 
 const HeroSection = () => {
-  const [searchValue, setSearchValue] = useState('');
   const navigate = useNavigate();
   
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchValue.trim()) {
-      // Navigate to event page with pre-filled location
-      navigate(`/event?location=${encodeURIComponent(searchValue)}`);
-    }
-  };
-
   return (
     <>
       <style>
@@ -60,16 +51,15 @@ const HeroSection = () => {
           </p>
           
           <div className="relative max-w-md mx-auto">
-            <form onSubmit={handleSearch}>
+            <div>
               <input
                 type="text"
                 placeholder="Search Location..."
-                value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
-                className="w-full px-4 py-2 rounded-full text-base border border-gray-300 focus:outline-none focus:border-primary"
+                onClick={() => navigate('/event')}
+                className="w-full px-4 py-2 rounded-full text-base border border-gray-300 focus:outline-none focus:border-primary cursor-pointer"
               />
               <button
-                type="submit"
+                onClick={() => navigate('/event')}
                 className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full flex items-center justify-center"
                 style={{ backgroundColor: 'var(--primary-color)', width: '36px', height: '36px' }}
               >
@@ -87,7 +77,7 @@ const HeroSection = () => {
                   />
                 </svg>
               </button>
-            </form>
+            </div>
           </div>
         </div>
       </div>
