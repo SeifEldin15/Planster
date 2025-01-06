@@ -59,21 +59,22 @@ const ServiceSelection = () => {
   return (
     <>
       <Navbar />
-      <div className="max-w-[1300px] mx-auto px-8 py-12">
-    <div className="flex items-center mb-12">
+      <div className="max-w-[1300px] mx-auto px-4 sm:px-8 py-6 sm:py-12">
+        <div className="flex flex-col sm:flex-row sm:items-center mb-8 sm:mb-12">
+          <h1 className="text-3xl sm:text-4xl mb-4 sm:mb-0">
+            {eventType || 'Wedding'}
+          </h1>
 
-    <h1 className="text-4xl">
-          {eventType || 'Wedding'}
-        </h1>
-
-        <div className="bg-[var(--secondary-color)] rounded-full  inline-block ml-4 flex items-center mt-3">
-          <p className="text-[var(--primary-color)] px-6 py-1">
-            There are 1082 results for your location
-          </p>
+          <div className="bg-[var(--secondary-color)] rounded-full inline-block sm:ml-4 flex items-center">
+            <p className="text-[var(--primary-color)] px-4 sm:px-6 py-1 text-sm sm:text-base">
+              There are 1082 results for your location
+            </p>
+          </div>
         </div>
-    </div>
-        <h2 className="text-4xl text-gray-600 mb-8">Let's see what you need...</h2>
-        <div className="grid grid-cols-6 gap-3 mb-12">
+
+        <h2 className="text-3xl sm:text-4xl text-gray-600 mb-6 sm:mb-8">Let's see what you need...</h2>
+        
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3 mb-8 sm:mb-12">
           {currentServices.map((service) => (
             <button
               key={service.id}
