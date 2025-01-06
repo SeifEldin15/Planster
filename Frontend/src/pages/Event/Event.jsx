@@ -38,11 +38,24 @@ const Event = () => {
       return;
     }
 
+    // First filter matching locations
     const filtered = locationData.filter(loc => 
       loc.place_name.toLowerCase().includes(searchText.toLowerCase())
-    ).slice(0, 5); // Limit to 5 results for better UX
+    );
 
-    setFilteredLocations(filtered);
+    // Remove exact duplicates while keeping similar but different names
+    const uniqueLocations = filtered.reduce((acc, current) => {
+      const exactMatch = acc.find(item => 
+        item.place_name.toLowerCase() === current.place_name.toLowerCase()
+      );
+      if (!exactMatch) {
+        acc.push(current);
+      }
+      return acc;
+    }, []);
+
+    // Limit to 5 results
+    setFilteredLocations(uniqueLocations.slice(0, 5));
   };
 
   const handleInputChange = (e) => {
