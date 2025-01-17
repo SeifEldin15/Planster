@@ -92,7 +92,7 @@ export const getTopRatedVenues = async (req, res) => {
             url: venue.image_url,
             alt: venue.name,
             title: venue.name,
-            subtitle: `${venue.category} • ${venue.rating}★ (${venue.reviews} reviews)`,
+            subtitle: venue.category,
             address: venue.address,
             phone: venue.phone,
             website: venue.website,
