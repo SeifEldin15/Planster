@@ -1,5 +1,10 @@
 import { useState, useRef } from 'react';
 
+const cleanHoursString = (hours) => {
+  if (!hours || hours === 'N/A') return null;
+  return hours.replace(/â‹…|•/g, '•').trim();
+};
+
 const Slider = ({ images }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [selectedVenue, setSelectedVenue] = useState(null);
@@ -83,7 +88,7 @@ const Slider = ({ images }) => {
                       ))}
                     </div>
                     <span className="text-sm text-gray-500">
-                      ({image.fullDetails?.reviews || 0})
+                      ({image.fullDetails?.reviews || 0} reviews)
                     </span>
                   </div>
                   <p className="text-sm text-gray-500">{image.subtitle}</p>
@@ -151,7 +156,9 @@ const Slider = ({ images }) => {
                     <>
                       <p><span className="font-semibold">Address:</span> {selectedVenue.fullDetails.address}</p>
                       <p><span className="font-semibold">Phone:</span> {selectedVenue.fullDetails.phone}</p>
-                      <p><span className="font-semibold">Hours:</span> {selectedVenue.fullDetails.hours}</p>
+                      {selectedVenue.fullDetails.hours && (
+                        <p><span className="font-semibold">Hours:</span> {cleanHoursString(selectedVenue.fullDetails.hours)}</p>
+                      )}
                       {selectedVenue.fullDetails.email && selectedVenue.fullDetails.email !== 'N/A' && (
                         <p><span className="font-semibold">Email:</span> {selectedVenue.fullDetails.email}</p>
                       )}
@@ -173,6 +180,9 @@ const Slider = ({ images }) => {
                     <>
                       <p><span className="font-semibold">Address:</span> {selectedVenue.address || 'N/A'}</p>
                       <p><span className="font-semibold">Phone:</span> {selectedVenue.phone || 'N/A'}</p>
+                      {selectedVenue.hours && (
+                        <p><span className="font-semibold">Hours:</span> {cleanHoursString(selectedVenue.hours)}</p>
+                      )}
                       {selectedVenue.email && selectedVenue.email !== 'N/A' && (
                         <p><span className="font-semibold">Email:</span> {selectedVenue.email}</p>
                       )}
