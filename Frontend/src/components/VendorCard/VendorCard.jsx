@@ -1,8 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initialIsFavorite = false, images = [], original_url }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const cardRef = useRef(null);
+
+  // Add click outside handler
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (cardRef.current && !cardRef.current.contains(event.target)) {
+        setIsExpanded(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   // Load initial favorite state from localStorage or props
   useEffect(() => {
@@ -79,6 +94,7 @@ const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initi
 
   return (
     <div 
+      ref={cardRef}
       className="flex flex-col p-4 lg:p-6 transition-all duration-200 cursor-pointer bg-white shadow-sm hover:shadow-lg rounded-xl relative"
     >
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-0">
