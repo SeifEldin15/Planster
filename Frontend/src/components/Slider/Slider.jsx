@@ -13,9 +13,23 @@ const Slider = ({ images }) => {
     }
   };
 
+  if (!images || images.length === 0) {
+    return null;
+  }
+
   return (
     <div className="relative max-w-[85%] mx-auto p-6">
       <div className="relative">
+        {/* Left scroll button */}
+        <button
+          onClick={() => scroll('left')}
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white p-2 rounded-full shadow-md hover:bg-gray-50"
+        >
+          <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
         <div
           ref={containerRef}
           className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth pb-4"
@@ -28,6 +42,9 @@ const Slider = ({ images }) => {
                     src={image.url}
                     alt={image.alt}
                     className="w-full h-full object-cover rounded-lg"
+                    onError={(e) => {
+                      e.target.src = '/images/default-venue.jpg'; // Fallback image
+                    }}
                   />
                 </div>
                 <div className="space-y-1">
@@ -38,6 +55,16 @@ const Slider = ({ images }) => {
             </div>
           ))}
         </div>
+
+        {/* Right scroll button */}
+        <button
+          onClick={() => scroll('right')}
+          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white p-2 rounded-full shadow-md hover:bg-gray-50"
+        >
+          <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
     </div>
   );
