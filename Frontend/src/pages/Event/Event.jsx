@@ -75,7 +75,7 @@ const Event = () => {
       };
 
       const services = defaultServices[selectedEventType].join(',');
-      navigate(`/results?keyword=${encodeURIComponent(location)}&category=${encodeURIComponent(selectedEventType)}&services=${encodeURIComponent(services)}`);
+      navigate(`/results?keyword=${encodeURIComponent(location)}&category=${encodeURIComponent(selectedEventType)}`);
     }
   };
 
