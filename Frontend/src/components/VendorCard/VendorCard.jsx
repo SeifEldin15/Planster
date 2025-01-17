@@ -105,7 +105,7 @@ const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initi
             className="w-full lg:w-28 h-40 lg:h-20 rounded-lg object-cover"
           />
           <div>
-            <h3 className="text-xl font-semibold text-gray-800">{name}</h3>
+            <h3 className="text-xl font-semibold text-gray-800 max-w-[300px] break-words mb-1">{name}</h3>
             <p className="text-gray-500">{address}</p>
           </div>
         </div>
