@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initialIsFavorite = false, images = [] }) => {
+const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initialIsFavorite = false, images = [], original_url }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -124,9 +124,14 @@ const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initi
             <button className="px-4 py-1.5 text-sm text-gray-600 border border-gray-200 rounded-full hover:bg-gray-50">
               Contact
             </button>
-            <button className="px-4 py-1.5 text-sm text-gray-600 border border-gray-200 rounded-full hover:bg-gray-50">
+            <a 
+              href={original_url} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="px-4 py-1.5 text-sm text-gray-600 border border-gray-200 rounded-full hover:bg-gray-50"
+            >
               View
-            </button>
+            </a>
           </div>
         </div>
       </div>
