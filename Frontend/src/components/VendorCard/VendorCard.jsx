@@ -131,7 +131,7 @@ const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initi
         </div>
       </div>
 
-      <div className={`mt-4 overflow-hidden transition-all duration-200 ${isHovered ? 'max-h-40 lg:max-h-32 opacity-100' : 'max-h-0 opacity-0'}`}>
+      <div className={`mt-4 overflow-hidden transition-all duration-200 ${isHovered ? 'max-h-96 lg:max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="pt-4 mt-2 space-y-2">
           <p className="text-gray-600">
             <span className="font-medium">Location:</span> {address}
