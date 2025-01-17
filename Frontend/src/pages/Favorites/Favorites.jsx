@@ -96,9 +96,10 @@ const Favorites = () => {
                   name={favorite.vendor.name}
                   address={favorite.vendor.address}
                   rating={favorite.vendor.rating}
-                  images={favorite.vendor.images}
                   email={favorite.vendor.email}
                   phone={favorite.vendor.phone}
+                  images={[favorite.vendor.image_url]}
+                  original_url={favorite.vendor.original_url}
                   isFavorite={true}
                 />
               );
