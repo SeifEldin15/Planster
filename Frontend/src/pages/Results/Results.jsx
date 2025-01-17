@@ -221,6 +221,7 @@ const Results = () => {
               images={[venue.image_url]}
               email={venue.email}
               phone={venue.phone}
+              original_url={venue.original_url}
             />
           ))}
         </div>
