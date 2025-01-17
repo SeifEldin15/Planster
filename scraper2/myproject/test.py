@@ -51,12 +51,64 @@ class VenueDetailScraper:
                 # Extract venue name
                 try:
                     venue_name = self.clean_text(self.driver.find_element(By.CSS_SELECTOR, 'h1').text)
+                    if not venue_name:
+                        name_selectors = [
+                            '.DUwDvf.lfPIob',  # From your new HTML
+                            'h1.DUwDvf',       # Alternative with h1
+                            '.DUwDvf',         # Existing selector
+                            'div[class*="DUwDvf"][class*="lfPIob"]'
+                        ]
+                        
+                        for selector in name_selectors:
+                            try:
+                                name_element = self.driver.find_element(By.CSS_SELECTOR, selector)
+                                venue_name = self.clean_text(name_element.text)
+                                if venue_name:
+                                    break
+                            except:
+                                continue
+                                
+                    if not venue_name:
+                        venue_name = "N/A"
                 except:
                     venue_name = "N/A"
                 
                 # Extract address
                 try:
                     address = self.clean_text(self.driver.find_element(By.CSS_SELECTOR, 'button[data-item-id="address"]').text)
+                    if not address:
+                        # Try alternative address selectors with multiple class combinations
+                        address_selectors = [
+                            '.Io6YTe.fontBodyMedium.kR99db.fdkmkc',  # Full class combination
+                            '.Io6YTe',  # Original fallback
+                            'div[class*="Io6YTe"][class*="fontBodyMedium"]',  # Partial class match
+                            '.rogA2c .Io6YTe',  # Container structure
+                            'button[data-item-id="address"] .Io6YTe',  # New button container structure
+                            'button.CsEnBe .Io6YTe'  # Alternative button class
+                        ]
+                        
+                        # Try getting address from aria-label if text is not found
+                        try:
+                            address_button = self.driver.find_element(By.CSS_SELECTOR, 'button[data-item-id="address"]')
+                            aria_address = address_button.get_attribute('aria-label')
+                            if aria_address and aria_address.startswith('Address: '):
+                                address = self.clean_text(aria_address.replace('Address: ', ''))
+                        except:
+                            pass
+                        
+                        # Try selectors if aria-label attempt failed
+                        if not address:
+                            for selector in address_selectors:
+                                try:
+                                    address_element = self.driver.find_element(By.CSS_SELECTOR, selector)
+                                    address = self.clean_text(address_element.text)
+                                    if address:
+                                        break
+                                except:
+                                    continue
+                                
+                    if not address:
+                        address = "N/A"
                 except:
                     address = "N/A"
                 
@@ -85,12 +137,23 @@ class VenueDetailScraper:
                 # Extract rating and reviews
                 try:
                     rating_reviews_element = self.driver.find_element(By.CSS_SELECTOR, '.F7nice')
+                    if not rating_reviews_element:
+                        # New alternative based on provided HTML
+                        rating_reviews_element = self.driver.find_element(By.CSS_SELECTOR, '.fontBodyMedium.dmRWX .F7nice')
+                    
                     rating = self.clean_text(rating_reviews_element.find_element(By.CSS_SELECTOR, 'span[aria-hidden="true"]').text)
                     reviews_element = rating_reviews_element.find_element(By.CSS_SELECTOR, 'span[aria-label$="reviews"]')
                     reviews = re.findall(r'\d+', reviews_element.get_attribute('aria-label'))[0]
                 except:
-                    rating = "N/A"
-                    reviews = "0"
+                    # Alternative method using the new HTML structure
+                    try:
+                        rating_container = self.driver.find_element(By.CSS_SELECTOR, '.fontBodyMedium.dmRWX .F7nice')
+                        rating = self.clean_text(rating_container.find_element(By.CSS_SELECTOR, 'span[aria-hidden="true"]').text)
+                        reviews_text = rating_container.find_element(By.CSS_SELECTOR, 'span[aria-label*="reviews"]').text
+                        reviews = re.findall(r'\d+', reviews_text)[0]
+                    except:
+                        rating = "N/A"
+                        reviews = "0"
                 
                 # Extract main image URL
                 try:
@@ -108,9 +171,11 @@ class VenueDetailScraper:
                 # Extract category
                 try:
                     category_selectors = [
-                        'button.DkEaL',
+                        'button.DkEaL',        # From your new HTML
+                        '.fontBodyMedium button.DkEaL',  # More specific path
                         'button[jsaction*="category"]',
-                        'button[jsaction="pane.rating.category"]'
+                        'button[jsaction="pane.rating.category"]',
+                        '.fjHK4'
                     ]
                     
                     categories = []
@@ -140,17 +205,29 @@ class VenueDetailScraper:
                     email = "N/A"
         # Extract working hours
                 try:
-                    # Locate the working hours container using the provided class
+                    # First attempt with original selector
                     working_hours_container = self.driver.find_element(By.CLASS_NAME, 'ZDu9vd')
-                    
-                    # Extract the full working hours text (assumes a single container with "Open 24 hours" or similar)
                     working_hours_text = self.clean_text(working_hours_container.text)
                     
-                    # Set the "hours" key directly with the extracted text
-                    if working_hours_text:
-                        hours = working_hours_text
-                    else:
-                        hours = "N/A"  # Default if no text is found
+                    if not working_hours_text:
+                        # Try alternative selectors
+                        hours_selectors = [
+                            '.Io6YTe.fontBodyMedium.kR99db.fdkmkc',
+                            '.rogA2c .Io6YTe',
+                            'div[class*="Io6YTe"][class*="fontBodyMedium"]'
+                        ]
+                        
+                        for selector in hours_selectors:
+                            try:
+                                hours_element = self.driver.find_element(By.CSS_SELECTOR, selector)
+                                working_hours_text = self.clean_text(hours_element.text)
+                                if working_hours_text:
+                                    break
+                            except:
+                                continue
+                    
+                    hours = working_hours_text if working_hours_text else "N/A"
+
                 except Exception as e:
                     print(f"Failed to extract working hours: {str(e)}")
                     hours = "N/A"
