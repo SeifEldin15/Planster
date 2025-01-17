@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initialIsFavorite = false, images = [], original_url }) => {
+const VendorCard = ({ id, name, address, rating, email, phone, website, hours, category, reviews, isFavorite: initialIsFavorite = false, images = [], original_url }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const cardRef = useRef(null);
@@ -92,6 +92,11 @@ const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initi
 
   console.log('Image path:', displayImage); // Add this for debugging
 
+  const cleanHoursString = (hours) => {
+    if (!hours || hours === 'N/A') return null;
+    return hours.replace(/â‹…|•/g, '•').trim(); // Replace weird symbols with a proper bullet point
+  };
+
   return (
     <div 
       ref={cardRef}
@@ -165,15 +170,49 @@ const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initi
         }}
       >
         <div className="pt-4 space-y-2">
-          <p className="text-gray-600">
-            <span className="font-medium">Location:</span> {address}
-          </p>
-          <p className="text-gray-600">
-            <span className="font-medium">Email:</span> {email}
-          </p>
-          <p className="text-gray-600">
-            <span className="font-medium">Phone:</span> {phone}
-          </p>
+          {address && address !== 'N/A' && (
+            <p className="text-gray-600">
+              <span className="font-medium">Location:</span> {address}
+            </p>
+          )}
+          {email && email !== 'N/A' && (
+            <p className="text-gray-600">
+              <span className="font-medium">Email:</span> {email}
+            </p>
+          )}
+          {phone && phone !== 'N/A' && (
+            <p className="text-gray-600">
+              <span className="font-medium">Phone:</span> {phone}
+            </p>
+          )}
+          {hours && hours !== 'N/A' && (
+            <p className="text-gray-600">
+              <span className="font-medium">Hours:</span> {cleanHoursString(hours)}
+            </p>
+          )}
+          {website && website !== 'N/A' && (
+            <p className="text-gray-600">
+              <span className="font-medium">Website:</span>{' '}
+              <a 
+                href={website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-purple-600 hover:text-purple-700 hover:underline"
+              >
+                {website}
+              </a>
+            </p>
+          )}
+          {category && category !== 'N/A' && (
+            <p className="text-gray-600">
+              <span className="font-medium">Category:</span> {category}
+            </p>
+          )}
+          {reviews && reviews !== 'N/A' && (
+            <p className="text-gray-600">
+              <span className="font-medium">Reviews:</span> {reviews}
+            </p>
+          )}
         </div>
       </div>
     </div>
