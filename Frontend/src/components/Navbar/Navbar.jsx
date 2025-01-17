@@ -1,40 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import logo from '../../assets/the logo.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
-  // Add this new function to handle FAQ click
-  const handleFAQClick = (e) => {
-    e.preventDefault();
-    const currentPath = window.location.pathname;
-    
-    if (currentPath === '/') {
-      // If on home page, just scroll to FAQ section
-      const faqElement = document.getElementById('faq');
-      if (faqElement) {
-        faqElement.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      // If not on home page, navigate to home and set a flag in sessionStorage
-      sessionStorage.setItem('scrollToFAQ', 'true');
-      window.location.href = '/#faq';
-    }
-  };
-
-  // Add useEffect to handle scroll after navigation
-  useEffect(() => {
-    const shouldScrollToFAQ = sessionStorage.getItem('scrollToFAQ');
-    if (shouldScrollToFAQ) {
-      sessionStorage.removeItem('scrollToFAQ');
-      setTimeout(() => {
-        const faqElement = document.getElementById('faq');
-        if (faqElement) {
-          faqElement.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-    }
-  }, []);
 
   return (
     <nav className="border-b border-gray-200 bg-white py-3">
@@ -83,8 +51,8 @@ const Navbar = () => {
           <a href="/" className="text-gray-700 hover:text-gray-900">
             Home
           </a>
-          <a href="/faq" className="text-gray-700 hover:text-gray-900" onClick={handleFAQClick}>
-            FAQ
+          <a href="/favorites" className="text-gray-700 hover:text-gray-900">
+            Favorites
           </a>
           <a 
             href="/results"
@@ -107,8 +75,8 @@ const Navbar = () => {
             <a href="/" className="text-gray-700 hover:text-gray-900">
               Home
             </a>
-            <a href="/faq" className="text-gray-700 hover:text-gray-900" onClick={handleFAQClick}>
-              FAQ
+            <a href="/favorites" className="text-gray-700 hover:text-gray-900">
+              Favorites
             </a>
             <a 
               href="/results"
