@@ -79,7 +79,7 @@ const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initi
 
   return (
     <div 
-      className="flex flex-col p-4 lg:p-6 transition-all duration-200 cursor-pointer bg-white shadow-sm hover:shadow-lg rounded-xl"
+      className="flex flex-col p-4 lg:p-6 transition-all duration-200 cursor-pointer bg-white shadow-sm hover:shadow-lg rounded-xl relative"
     >
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-0">
         <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6 w-full lg:w-auto">
@@ -137,8 +137,18 @@ const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initi
         </div>
       </div>
 
-      <div className={`mt-4 overflow-hidden transition-all duration-200 ${isExpanded ? 'max-h-96 lg:max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className="pt-4 mt-2 space-y-2">
+      <div 
+        className={`
+          absolute left-0 right-0 bg-white z-10 px-4 lg:px-6 pb-4 shadow-lg rounded-b-xl
+          transition-all duration-200 
+          ${isExpanded ? 'opacity-100 visible' : 'opacity-0 invisible'}
+        `}
+        style={{
+          top: '100%',
+          transform: isExpanded ? 'translateY(0)' : 'translateY(-10px)',
+        }}
+      >
+        <div className="pt-4 space-y-2">
           <p className="text-gray-600">
             <span className="font-medium">Location:</span> {address}
           </p>

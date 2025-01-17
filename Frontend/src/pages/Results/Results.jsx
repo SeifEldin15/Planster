@@ -210,7 +210,7 @@ const Results = () => {
       <div className="max-w-[85%] mx-auto p-6">
         <h2 className="text-2xl font-semibold mb-6">Local Vendors</h2>
         
-        <div className="divide-y divide-gray-200 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 items-start">
           {venues.map((venue) => (
             <VendorCard 
               key={venue._id}
