@@ -1,6 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import eventImage from './21.jpg'; // Add this import
+import musicImage from './music.jpg';
+import corporateImage from './corporate.jpg';
+import partiesImage from './party1.jpg';
 
 const EventCard = ({ title, imageSrc }) => (
   <div className="flex flex-col items-center">
@@ -25,15 +28,15 @@ const EventBookingSection = () => {
     },
     {
       title: "Parties",
-      imageSrc: eventImage,
+      imageSrc: partiesImage,
     },
     {
       title: "Music Events",
-      imageSrc: eventImage,
+      imageSrc: musicImage,
     },
     {
       title: "Corporate",
-      imageSrc: eventImage,
+      imageSrc: corporateImage,
     }
   ];
 
