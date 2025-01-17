@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initialIsFavorite = false, images = [], original_url }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
   // Load initial favorite state from localStorage or props
@@ -80,8 +80,6 @@ const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initi
   return (
     <div 
       className="flex flex-col p-4 lg:p-6 transition-all duration-200 cursor-pointer bg-white shadow-sm hover:shadow-lg rounded-xl"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-0">
         <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6 w-full lg:w-auto">
@@ -121,7 +119,10 @@ const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initi
                 />
               </svg>
             </button>
-            <button className="px-4 py-1.5 text-sm text-gray-600 border border-gray-200 rounded-full hover:bg-gray-50">
+            <button 
+              onClick={() => setIsExpanded(!isExpanded)} 
+              className="px-4 py-1.5 text-sm text-gray-600 border border-gray-200 rounded-full hover:bg-gray-50"
+            >
               Contact
             </button>
             <a 
@@ -136,7 +137,7 @@ const VendorCard = ({ id, name, address, rating, email, phone, isFavorite: initi
         </div>
       </div>
 
-      <div className={`mt-4 overflow-hidden transition-all duration-200 ${isHovered ? 'max-h-96 lg:max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}>
+      <div className={`mt-4 overflow-hidden transition-all duration-200 ${isExpanded ? 'max-h-96 lg:max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="pt-4 mt-2 space-y-2">
           <p className="text-gray-600">
             <span className="font-medium">Location:</span> {address}
