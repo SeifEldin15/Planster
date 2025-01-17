@@ -79,6 +79,8 @@ const Results = () => {
   const [page, setPage] = useState(1);  // Track current page
   const [hasMore, setHasMore] = useState(true);  // Track if more results exist
   const VENUES_PER_PAGE = 10;  // Number of venues to load per page
+  const [topVenues, setTopVenues] = useState([]);
+  const [topVenuesLoading, setTopVenuesLoading] = useState(true);
   
   // Get search parameters from URL
   const initialKeyword = searchParams.get('keyword') || '';
@@ -96,7 +98,7 @@ const Results = () => {
       setLoading(true);
       const servicesParam = selectedServices.length > 0 ? `&services=${selectedServices.join(',')}` : '';
       const response = await fetch(
-        `https://planster.com.au/api/venues?limit=${VENUES_PER_PAGE}&page=${pageNum}&keyword=${keyword}&category=${category}${servicesParam}`,
+        `http://localhost:5000/api/venues?limit=${VENUES_PER_PAGE}&page=${pageNum}&keyword=${keyword}&category=${category}${servicesParam}`,
         {
           credentials: 'include',
           headers: {
@@ -146,7 +148,41 @@ const Results = () => {
     setPage(1);
     fetchVenues(1, term, category);
   };
- 
+
+  // Add new function to fetch top rated venues
+  const fetchTopVenues = async () => {
+    try {
+        setTopVenuesLoading(true);
+        const response = await fetch(
+            `http://localhost:5000/api/venues/top-rated?category=${encodeURIComponent(selectedCategory)}`,
+            {
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Failed to fetch top venues');
+        }
+
+        setTopVenues(data);
+    } catch (err) {
+        console.error('Error fetching top venues:', err);
+        setTopVenues([]);
+    } finally {
+        setTopVenuesLoading(false);
+    }
+  };
+
+  // Add useEffect to fetch top venues when category changes
+  useEffect(() => {
+    fetchTopVenues();
+  }, [selectedCategory]);
+
   return (
     <>
       <Navbar />
@@ -155,7 +191,7 @@ const Results = () => {
         initialSearchTerm={searchTerm} 
         initialCategory={selectedCategory}
       />
-      <Slider images={images} />
+      {!topVenuesLoading && topVenues.length > 0 && <Slider images={topVenues} />}
       
       {/* Full page loading overlay */}
       {loading && (
@@ -174,7 +210,6 @@ const Results = () => {
       <div className="max-w-[85%] mx-auto p-6">
         <h2 className="text-2xl font-semibold mb-6">Local Vendors</h2>
         
-        {/* Show venues */}
         <div className="divide-y divide-gray-200 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
           {venues.map((venue) => (
             <VendorCard 
@@ -183,7 +218,7 @@ const Results = () => {
               name={venue.name}
               address={venue.address}
               rating={venue.rating}
-              images={venue.images}
+              images={[venue.image_url]}
               email={venue.email}
               phone={venue.phone}
             />
