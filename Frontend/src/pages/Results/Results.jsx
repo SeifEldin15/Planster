@@ -155,6 +155,10 @@ const Results = () => {
               images={[venue.image_url]}
               email={venue.email}
               phone={venue.phone}
+              website={venue.website}
+              hours={venue.hours}
+              category={venue.category}
+              reviews={venue.reviews}
               original_url={venue.original_url}
             />
           ))}
