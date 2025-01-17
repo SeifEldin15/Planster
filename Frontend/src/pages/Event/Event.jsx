@@ -67,7 +67,15 @@ const Event = () => {
 
   const handleNext = () => {
     if (location.trim()) {
-      navigate(`/service-selection?location=${encodeURIComponent(location)}&category=${encodeURIComponent(selectedEventType)}`);
+      const defaultServices = {
+        party: ['venue', 'catering', 'entertainment', 'decoration'],
+        'Wedding venue': ['Wedding venue', 'catering', 'photographer', 'decoration'],
+        corporate: ['venue', 'catering', 'av-equipment', 'decoration'],
+        music: ['venue', 'sound-system', 'lighting', 'security']
+      };
+
+      const services = defaultServices[selectedEventType].join(',');
+      navigate(`/results?keyword=${encodeURIComponent(location)}&category=${encodeURIComponent(selectedEventType)}&services=${encodeURIComponent(services)}`);
     }
   };
 
