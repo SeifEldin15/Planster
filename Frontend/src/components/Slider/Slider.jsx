@@ -22,6 +22,21 @@ const Slider = ({ images }) => {
     setSelectedVenue(null);
   };
 
+  const renderStars = (rating) => {
+    const ratingInt = Math.round(rating);
+    return Array(5).fill(0).map((_, index) => (
+      <svg
+        key={index}
+        className={`w-6 h-6 ${index < ratingInt ? 'text-yellow-300' : 'text-gray-200'}`}
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+      >
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+      </svg>
+    ));
+  };
+
   if (!images || images.length === 0) {
     return null;
   }
@@ -61,6 +76,16 @@ const Slider = ({ images }) => {
                   />
                 </div>
                 <div className="space-y-1">
+                  <div className="flex items-center gap-1">
+                    <div className="flex gap-0.5">
+                      {renderStars(image.fullDetails?.rating || 0).map((star, i) => (
+                        <div key={i} className="w-5 h-5 flex items-center">{star}</div>
+                      ))}
+                    </div>
+                    <span className="text-sm text-gray-500">
+                      ({image.fullDetails?.reviews || 0})
+                    </span>
+                  </div>
                   <p className="text-sm text-gray-500">{image.subtitle}</p>
                   <h3 className="font-medium text-gray-900">{image.title}</h3>
                 </div>
@@ -86,7 +111,11 @@ const Slider = ({ images }) => {
           <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-start mb-4">
-                <h2 className="text-2xl font-bold">{selectedVenue.title}</h2>
+                <div>
+                  
+                  <p className="text-2xl font-semibold">{selectedVenue.title}</p>
+                </div>
+                
                 <button 
                   onClick={closeModal}
                   className="text-gray-500 hover:text-gray-700"
@@ -105,7 +134,16 @@ const Slider = ({ images }) => {
                   e.target.src = '/images/default-venue.jpg';
                 }}
               />
-              
+              <div className="flex items-center gap-2 mb-2">
+                <div className="flex gap-0.5">
+                  {renderStars(selectedVenue.fullDetails?.rating || 0).map((star, i) => (
+                    <div key={i} className="w-5 h-5 flex items-center">{star}</div>
+                  ))}
+                </div>
+                <span className="text-sm text-gray-500 mb-1">
+                  ({selectedVenue.fullDetails?.reviews || 0} reviews)
+                </span>
+              </div>
               <div className="space-y-3">
                 <p className="text-lg text-gray-600">{selectedVenue.subtitle}</p>
                 <div className="space-y-2">
