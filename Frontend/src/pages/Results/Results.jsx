@@ -3,74 +3,8 @@ import VendorCard from '../../components/VendorCard/VendorCard';
 import Navbar from '../../components/Navbar/Navbar'
 import Slider from '../../components/Slider/Slider'
 import SearchSection from '../../components/SearchSection/SearchSection'
-// import Footer from '../../components/Footer/Footer'
-import testimg from '../../assets/testimg.jpg';
 import { useSearchParams } from 'react-router-dom';
-const images = [
-  {
-    url: testimg,
-    title: 'Green Tea Rabbit Hole Works',
-    subtitle: 'Never Never Distilling Co.'  },
-  {
-    url: testimg,
-    title: 'Green Tea Rabbit Hole Works',
-    subtitle: 'Never Never Distilling Co.'
-  },
-  {
-    url: testimg,
-    title: 'Green Tea Rabbit Hole Works',
-    subtitle: 'Never Never Distilling Co.'  },
-  {
-    url: testimg,
-    title: 'Green Tea Rabbit Hole Works',
-    subtitle: 'Never Never Distilling Co.'
-  },
-  {
-    url: testimg,
-    title: 'Green Tea Rabbit Hole Works',
-    subtitle: 'Never Never Distilling Co.'  },
-  {
-    url: testimg,
-    title: 'Green Tea Rabbit Hole Works',
-    subtitle: 'Never Never Distilling Co.'
-  },
-  {
-    url: testimg,
-    title: 'Green Tea Rabbit Hole Works',
-    subtitle: 'Never Never Distilling Co.'  },
-  {
-    url: testimg,
-    title: 'Green Tea Rabbit Hole Works',
-    subtitle: 'Never Never Distilling Co.'
-  },
-  {
-    url: testimg,
-    title: 'Green Tea Rabbit Hole Works',
-    subtitle: 'Never Never Distilling Co.'  },
-  {
-    url: testimg,
-    title: 'Green Tea Rabbit Hole Works',
-    subtitle: 'Never Never Distilling Co.'
-  },
-  {
-    url: testimg,
-    title: 'Green Tea Rabbit Hole Works',
-    subtitle: 'Never Never Distilling Co.'  },
-  {
-    url: testimg,
-    title: 'Green Tea Rabbit Hole Works',
-    subtitle: 'Never Never Distilling Co.'
-  },
-  {
-    url: testimg,
-    title: 'Green Tea Rabbit Hole Works',
-    subtitle: 'Never Never Distilling Co.'  },
-  {
-    url: testimg,
-    title: 'Green Tea Rabbit Hole Works',
-    subtitle: 'Never Never Distilling Co.'
-  },
-];
+
 const Results = () => {
   const [searchParams] = useSearchParams();
   const [venues, setVenues] = useState([]);
@@ -98,7 +32,7 @@ const Results = () => {
       setLoading(true);
       const servicesParam = selectedServices.length > 0 ? `&services=${selectedServices.join(',')}` : '';
       const response = await fetch(
-        `https://planster.com.au/api/venues?limit=${VENUES_PER_PAGE}&page=${pageNum}&keyword=${keyword}&category=${category}${servicesParam}`,
+        `http://localhost:5000/api/venues?limit=${VENUES_PER_PAGE}&page=${pageNum}&keyword=${keyword}&category=${category}${servicesParam}`,
         {
           credentials: 'include',
           headers: {
@@ -154,7 +88,7 @@ const Results = () => {
     try {
         setTopVenuesLoading(true);
         const response = await fetch(
-            `https://planster.com.au/api/venues/top-rated?category=${encodeURIComponent(selectedCategory)}`,
+            `http://localhost:5000/api/venues/top-rated?category=${encodeURIComponent(selectedCategory)}`,
             {
                 credentials: 'include',
                 headers: {
