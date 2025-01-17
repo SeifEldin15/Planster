@@ -4,11 +4,13 @@ import {
     getVenueById, 
     createVenue, 
     updateVenue, 
-    deleteVenue 
+    deleteVenue,
+    getTopRatedVenues
 } from '../controllers/venueController.js';
 
 const router = express.Router();
 
+router.get('/top-rated', getTopRatedVenues);
 router.get('/', getAllVenues);
 router.get('/:id', getVenueById);
 router.post('/', createVenue);
