@@ -37,6 +37,21 @@ const venueSchema = mongoose.Schema({
     },
     hours: {
         type: String
+    },
+    website: {
+        type: String,
+        required: true
+    },
+    image_url: {
+        type: String,
+        required: true
+    },
+    original_url: {
+        type: String
+    },
+    search_city: {
+        type: String,
+        required: true
     }
 }, {
     timestamps: true 
